@@ -16,7 +16,6 @@ media = None  # Inizializza una variabile per memorizzare la media dei prezzi
 
 #funzione scraping per amazon di schede video 
 def schede_video_amazon(scheda):
-    scheda='4070'
     info_schede = {"nome" : [], "prezzo" : [], "link" : []}  # Dizionario per raccogliere informazioni
     index = 1  # Indice usato per iterare (non usato nel codice fornito)
     HEADERS = ({'User-Agent': '...'})  # Imposta un User-Agent per simulare una richiesta da browser
@@ -74,3 +73,5 @@ def schede_video_amazon(scheda):
                 pass  # Gestisce il caso in cui non si trovi il prezzo
 
     return info_schede
+
+schede_video_amazon('4070')
