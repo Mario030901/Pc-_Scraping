@@ -74,11 +74,4 @@ def schede_video_amazon(scheda):
 
     return info_schede
 
-
-
-#Le funzioni akinformatica e nexths sono molto simili a amazon e seguono lo stesso pattern:
-#Configurano l'URL e i headers.
-#Fanno il download del contenuto HTML.
-#Salva il file HTML e lo riapre per il parsing.
-#Estraggono i link ai prodotti.
-#Per ogni prodotto, estraggono i dettagli (nome, link, prezzo) e li salvano.
+schede_video_amazon('4070')

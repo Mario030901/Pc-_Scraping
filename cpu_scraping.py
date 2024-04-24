@@ -4,7 +4,7 @@
 import requests  # Imports library for HTTP requests
 from bs4 import BeautifulSoup as bs  # Imports BeautifulSoup for HTML parsing
 import os  # Imports library to interact with the operating system
-import locale  # Importa il modulo per gestire le impostazioni locali (come la formattazione dei numeri)
+import locale  # Imports library to manage local settings (for example numbers formatting)
 limite_elementi = 5  # Imposta un limite per il numero di prodotti da elaborare
 media = None  # Inizializza una variabile per memorizzare la media dei prezzi
 def processori_amazon_intel(model):
