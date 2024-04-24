@@ -16,6 +16,7 @@ media = None  # Inizializza una variabile per memorizzare la media dei prezzi
 
 #funzione scraping per amazon di schede video 
 def schede_video_amazon(scheda):
+    scheda='4070'
     info_schede = {"nome" : [], "prezzo" : [], "link" : []}  # Dizionario per raccogliere informazioni
     index = 1  # Indice usato per iterare (non usato nel codice fornito)
     HEADERS = ({'User-Agent': '...'})  # Imposta un User-Agent per simulare una richiesta da browser
@@ -73,12 +74,3 @@ def schede_video_amazon(scheda):
                 pass  # Gestisce il caso in cui non si trovi il prezzo
 
     return info_schede
-
-
-
-#Le funzioni akinformatica e nexths sono molto simili a amazon e seguono lo stesso pattern:
-#Configurano l'URL e i headers.
-#Fanno il download del contenuto HTML.
-#Salva il file HTML e lo riapre per il parsing.
-#Estraggono i link ai prodotti.
-#Per ogni prodotto, estraggono i dettagli (nome, link, prezzo) e li salvano.
