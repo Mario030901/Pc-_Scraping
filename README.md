@@ -1,2 +1,2 @@
 # Pc-_Scraping
-Scraping delle varie componenti di un pc, pc building
+Scraping of various components of a PC and propose of a pc building
