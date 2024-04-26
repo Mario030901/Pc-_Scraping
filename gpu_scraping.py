@@ -12,9 +12,9 @@ max_elements = 3  # set a max number of links
 def amazon_gpus(gpu_model: str): # gpu_model is used to search a specified GPU model
     '''This function scrapes GPUs from amazon'''
     info_gpu = {"name" : [], "price" : [], "link" : []}  # creates a dictionary to store the informations
-    HEADERS = ({'User-Agent': '...'})  # Imposta un User-Agent per simulare una richiesta da browser
+    HEADERS = ({'User-Agent': '...'})  # simulates a browser request
     
-    url = "https://www.amazon.it/s?k=rtx+" + str(gpu_model)  # Crea l'URL per la ricerca
+    url = "https://www.amazon.it/s?k=rtx+" + str(gpu_model)  # URL to search Intel cpus
     
     response = requests.get(url, headers=HEADERS)  # Makes a HTTP request to the UR
     soup = bs(response.content, "html.parser")  # Analyzes the response
