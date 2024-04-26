@@ -1,4 +1,4 @@
-import page_processing as pp
+#import page_processing as pp
 
 # Variabili iniziali
 controllo = False
@@ -13,58 +13,63 @@ try:
     print("Preferiresti avere un PC più performante in:")
     print("(1) GPU - Grafica")
     print("(2) CPU - Processore")
-    preferenza_scelta = int(input("Inserisci il numero corrispondente alla tua preferenza: "))
+
+    while True:
+        preferenza_scelta = int(input("Inserisci il numero corrispondente alla tua preferenza: "))
     
-    if preferenza_scelta == 1:
-        preferenza = "GPU"
-    elif preferenza_scelta == 2:
-        preferenza = "CPU"
-    else:
-        raise ValueError("Devi scegliere tra 1 (GPU) o 2 (CPU).")
+        if preferenza_scelta == 1:
+            preferenza = "GPU"
+            print("Per una GPU ottimale, considera la serie 4000 di NVIDIA, come la RTX 4060, 4070, 4080 o la potente 4090.")
+            break
+        elif preferenza_scelta == 2:
+            preferenza = "CPU"
+            print("Per una CPU di ultima generazione, considera i processori di 14ª generazione. Nota: i processori di 13ª generazione tendono a surriscaldarsi secondo la nostra esperienza.")
+            break
+        else:
+            print("Valore non corretto, inserisci 1 o 2 per proseguire.")
 except ValueError as e:
     print(f"Errore: {e}")
     exit()
 
-# Ciclo while per la scelta della serie e del modello della scheda video
-while True:
-    try:
-        # Chiede all'utente di scegliere tra serie 3000 o 4000 RTX
-        scelta = int(input("Inserisci (1) per scegliere la serie 3000 RTX | (2) per scegliere la serie 4000 RTX: "))
+# Ciclo while per la scelta della serie e del modello della scheda video3
+try:
+     # Chiede all'utente di scegliere tra serie 3000 o 4000 RTX
+    scelta = int(input("Inserisci (1) per scegliere la serie 3000 RTX | (2) per scegliere la serie 4000 RTX: "))
         
-        if scelta == 1:
-            while True:
-                try:
-                    print("Inserisci (50) per scegliere la 3050 RTX")
-                    print("Inserisci (60) per scegliere la 3060 RTX")
-                    print("Inserisci (70) per scegliere la 3070 RTX")
-                    print("Inserisci (80) per scegliere la 3080 RTX")
-                    scheda = int(input("Inserisci (90) per scegliere la 3090 RTX: \n"))
+    if scelta == 1:
+        while True:
+            try:
+                print("Inserisci (50) per scegliere la 3050 RTX")
+                print("Inserisci (60) per scegliere la 3060 RTX")
+                print("Inserisci (70) per scegliere la 3070 RTX")
+                print("Inserisci (80) per scegliere la 3080 RTX")
+                scheda = int(input("Inserisci (90) per scegliere la 3090 RTX: \n"))
                     
-                    if scheda == 50:
-                        scheda = 3050
-                        controllo = True
-                        break
-                    elif scheda == 60:
-                        scheda = 3060
-                        controllo = True
-                        break
-                    elif scheda == 70:
-                        scheda = 3070
-                        controllo = True
-                        break
-                    elif scheda == 80:
-                        scheda = 3080
-                        controllo = True
-                        break
-                    elif scheda == 90:
-                        scheda = 3090
-                        controllo = True
-                        break
-                    else:
-                        raise ValueError()
-                except ValueError:
-                    print("Inserisci una scheda video valida")
-            if controllo:
+                if scheda == 50:
+                    scheda = 3050
+                    controllo = True
+                    break
+                elif scheda == 60:
+                    scheda = 3060
+                    controllo = True
+                    break
+                elif scheda == 70:
+                    scheda = 3070
+                    controllo = True
+                    break
+                elif scheda == 80:
+                    scheda = 3080
+                    controllo = True
+                    break
+                elif scheda == 90:
+                    scheda = 3090
+                    controllo = True
+                    break
+                else:
+                    raise ValueError()
+            except ValueError:
+                print("Inserisci una scheda video valida")
+        if controllo:
                 break
 
         elif scelta == 2:
