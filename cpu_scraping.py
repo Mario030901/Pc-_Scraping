@@ -1,40 +1,47 @@
-#scraping amazon processori 
+#scraping amazon CPUs 
 
 # Imports
 import requests  # Imports library for HTTP requests
 from bs4 import BeautifulSoup as bs  # Imports BeautifulSoup for HTML parsing
 import os  # Imports library to interact with the operating system
-import locale  # Imports library to manage local settings (for example numbers formatting)
-limite_elementi = 5  # Imposta un limite per il numero di prodotti da elaborare
-media = None  # Inizializza una variabile per memorizzare la media dei prezzi
-def processori_amazon_intel(model):
-    info = {"nome": [], "prezzo": [], "link": []}
-    HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'}
+#import locale  # Imports library to manage local settings (for example numbers formatting)
+#End of imports
+
+max_elements = 3  # set a max number of links
+
+def cpu_amazon_intel(cpu_model: str): # cpu_model is used to search a specified CPU model
+    '''This function scrapes CPUs from amazon'''
     
-    # Costruzione URL per la ricerca dei processori Intel
-    url = f"https://www.amazon.it/s?k=intel+core+{model}"
+    info_cpu = {"name": [], "price": [], "link": []} # creates a dictionary to store the informations
+    HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'} # simulates 
+    
+    # URL to search Intel cpus
+    url = f"https://www.amazon.it/s?k=intel+core+{cpu_model}"
 
     response = requests.get(url, headers=HEADERS)
     soup = bs(response.content, 'html.parser')
 
-    # Salvataggio del contenuto HTML per analisi offline (opzionale)
+    # saving HTML content to analyze it on the machine
     current_dir = os.path.dirname(__file__)
-    filename = f"amazon_intel_{model}.html"
-    filepath = os.path.join(current_dir, filename)
+    cpu_name = f"amazon_intel_{cpu_model}.html"
+    filepath = os.path.join(current_dir, cpu_name)
     
+    # If the file exists delete it and resave it
     if os.path.exists(filepath):
         os.remove(filepath)
     
+    # Saving the file
     with open(filepath, 'w', encoding='utf-8') as f:
         f.write(soup.prettify())
     
-    # Analisi del file HTML salvato per estrarre informazioni sui prodotti
+    # Analysis of the saved HTML file  to get products infos
     with open(filepath, 'r', encoding='utf-8') as file:
         soup = bs(file, 'html.parser')
     
     links = soup.find_all('a', attrs={'class': 'a-link-normal s-no-outline'})
-    links_list = [link.get('href') for link in links[:5]]  # Limit to first 5 elements
+    links_list = [link.get('href') for link in links[:3]]  # Limit to first 3 elements
 
+    # Download of the page and info extraction for every product
     for link in links_list:
         product_url = "https://www.amazon.it" + link
         product_page = requests.get(product_url, headers=HEADERS)
@@ -46,8 +53,10 @@ def processori_amazon_intel(model):
         except AttributeError:
             price = "N/A"
 
-        info['nome'].append(title)
-        info['prezzo'].append(price)
-        info['link'].append(product_url)
+        info_cpu['name'].append(title)
+        info_cpu['price'].append(price)
+        info_cpu['link'].append(product_url)
 
-    return info
+    return info_cpu
+
+cpu_amazon_intel('i5 14000')
