@@ -13,13 +13,13 @@ def cpu_amazon_intel(cpu_model: str): # cpu_model is used to search a specified 
     '''This function scrapes CPUs from amazon'''
     
     info_cpu = {"name": [], "price": [], "link": []} # creates a dictionary to store the informations
-    HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'} # simulates 
+    HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'} # simulates a browser request
     
     # URL to search Intel cpus
     url = f"https://www.amazon.it/s?k=intel+core+{cpu_model}"
 
-    response = requests.get(url, headers=HEADERS)
-    soup = bs(response.content, 'html.parser')
+    response = requests.get(url, headers=HEADERS) # makes a HTTP request to the URL
+    soup = bs(response.content, 'html.parser') # Analyzes the response
 
     # saving HTML content to analyze it on the machine
     current_dir = os.path.dirname(__file__)

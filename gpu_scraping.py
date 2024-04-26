@@ -16,8 +16,8 @@ def amazon_gpus(gpu_model): # gpu_model is used to search a specified GPU model
     
     url = "https://www.amazon.it/s?k=rtx+" + str(gpu_model)  # Crea l'URL per la ricerca
     
-    webpage = requests.get(url, headers=HEADERS)  # Fa una richiesta HTTP all'URL
-    soup = bs(webpage.content, "html.parser")  # Analizza il contenuto HTML
+    response = requests.get(url, headers=HEADERS)  # Makes a HTTP request to the UR
+    soup = bs(response.content, "html.parser")  # Analyzes the response
 
     # Percorso dove salvare il file HTML scaricato
     current_dir = os.path.dirname(__file__)
@@ -27,9 +27,9 @@ def amazon_gpus(gpu_model): # gpu_model is used to search a specified GPU model
     # Controlla se il file esiste già e in tal caso lo elimina
     if os.path.exists(file_path):
         os.remove(file_path)
-        print(f"Il file {file_path} è stato eliminato.")
+        print(f"File {file_path} has been deleted.")
     else:
-        print(f"Il file {file_path} non esiste.")
+        print(f"File {file_path} doesn't exist.")
 
     # Salva la nuova pagina HTML
     with open(file_path, 'w', encoding="utf-8") as f:
