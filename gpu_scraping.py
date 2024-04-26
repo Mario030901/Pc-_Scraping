@@ -1,33 +1,27 @@
-#BOZZA INIZIALE 
+# Scraping amazon GPUs 
 
-#inizio dichiarazioni
+# Imports
+import requests  # Imports library for HTTP requests
+from bs4 import BeautifulSoup as bs  # Imports BeautifulSoup for HTML parsing
+import os  # Imports library to interact with the operating system
+#import locale  # Imports library to manage local settings (for example numbers formatting)
+# End of imports
 
-import requests  # Importa il modulo per fare richieste HTTP
-from bs4 import BeautifulSoup as bs  # Importa BeautifulSoup per il parsing HTML
-import os  # Importa il modulo per interagire con il sistema operativo
-import locale  # Importa il modulo per gestire le impostazioni locali (come la formattazione dei numeri)
-limite_elementi = 5  # Imposta un limite per il numero di prodotti da elaborare
-media = None  # Inizializza una variabile per memorizzare la media dei prezzi
-
-#all'inizio dobbiamo aggiungere tutta la parte di domanda all'utente di come vuole fare il pc e quanti soldi ha per fare la build 
-
-
-
-
-#funzione scraping per amazon di schede video 
-def schede_video_amazon(scheda):
-    info_schede = {"nome" : [], "prezzo" : [], "link" : []}  # Dizionario per raccogliere informazioni
-    index = 1  # Indice usato per iterare (non usato nel codice fornito)
+max_elements = 3  # set a max number of links
+ 
+def amazon_gpus(gpu_model): # gpu_model is used to search a specified GPU model
+    '''This function scrapes GPUs from amazon'''
+    info_schede = {"nome" : [], "prezzo" : [], "link" : []}  # creates a dictionary to store the informations
     HEADERS = ({'User-Agent': '...'})  # Imposta un User-Agent per simulare una richiesta da browser
     
-    url = "https://www.amazon.it/s?k=rtx+" + str(scheda)  # Crea l'URL per la ricerca
+    url = "https://www.amazon.it/s?k=rtx+" + str(gpu_model)  # Crea l'URL per la ricerca
     
     webpage = requests.get(url, headers=HEADERS)  # Fa una richiesta HTTP all'URL
     soup = bs(webpage.content, "html.parser")  # Analizza il contenuto HTML
 
     # Percorso dove salvare il file HTML scaricato
     current_dir = os.path.dirname(__file__)
-    nome_scheda = "amazon_rtx" + str(scheda) + ".html"
+    nome_scheda = "amazon_rtx" + str(gpu_model) + ".html"
     file_path = os.path.join(current_dir, nome_scheda)
 
     # Controlla se il file esiste già e in tal caso lo elimina
@@ -49,7 +43,7 @@ def schede_video_amazon(scheda):
         links_list = []
         elementi_aggiunti = 0
         for link in links:
-            if elementi_aggiunti >= limite_elementi:
+            if elementi_aggiunti >= max_elements:
                 break
             links_list.append("https://www.amazon.it" + link.get('href'))
             elementi_aggiunti += 1
