@@ -49,6 +49,7 @@ try:
                     scheda = 3050
                     controllo = True
                     break
+                
                 elif scheda == 60:
                     scheda = 3060
                     controllo = True
@@ -69,17 +70,17 @@ try:
                     raise ValueError()
             except ValueError:
                 print("Inserisci una scheda video valida")
-        if controllo:
+            if controllo:
                 break
 
-        elif scelta == 2:
+    elif scelta == 2:
             while True:
                 try:
                     print("Inserisci (60) per scegliere la 4060 RTX")
                     print("Inserisci (70) per scegliere la 4070 RTX")
                     print("Inserisci (80) per scegliere la 4080 RTX")
                     scheda = int(input("Inserisci (90) per scegliere la 4090 RTX: \n"))
-                    
+                
                     if scheda == 60:
                         scheda = 4060
                         controllo = True
@@ -100,13 +101,13 @@ try:
                         raise ValueError()
                 except ValueError:
                     print("Inserisci una scheda video valida")
-            if controllo:
-                break
-        else:
+                if controllo:
+                    break
+    else:
             raise ValueError()
-    except ValueError:
-        print("Devi inserire un numero intero valido")
-        scelta2 = 0
+except ValueError:
+    print("Devi inserire un numero intero valido")
+    scelta2 = 0
 
 while True:  #scelta visualizzazione informazioni
     try:
@@ -203,14 +204,6 @@ while True:  #scelta visualizzazione informazioni
                 print(f"Link: {link_max}")
             else:
                 print("Nessun prodotto trovato.")
-
-        elif scelta2 == 3: #prezzo medio totale
-            schede_amazon = pp.amazon(scheda)
-            schede_akinformatica = pp.akinformatica(scheda)
-            schede_nexths = pp.nexths(scheda)
-            nomi_amazon = schede_amazon["nome"]
-            nomi_akinformatica = schede_akinformatica["nome"]
-            nomi_nexths = schede_nexths["nome"]
 
             #faccio i relativi controlli se ci sono o meno degli
             if not nomi_amazon and not nomi_akinformatica and not nomi_nexths:
