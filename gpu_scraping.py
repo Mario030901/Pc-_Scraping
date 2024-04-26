@@ -40,9 +40,9 @@ def amazon_gpus(gpu_model): # gpu_model is used to search a specified GPU model
     links = soup.find_all('a', attrs={'class': 'a-link-normal s-no-outline'})
     links_list = [link.get('href') for link in links[:3]]  # Limit to first 3 elements
 
-        # Per ogni link trovato, scarica la pagina del prodotto e estrae le informazioni
+    # Download of the page and info extraction for every product
     for link in links_list:
-        # Per ogni link trovato, scarica la pagina del prodotto e estrae le informazioni
+        
         product_url = "https://www.amazon.it" + link
         product_page = requests.get(product_url, headers=HEADERS)
         product_soup = bs(product_page.content, 'html.parser')
@@ -58,11 +58,4 @@ def amazon_gpus(gpu_model): # gpu_model is used to search a specified GPU model
         info_gpu['link'].append(product_url)
         print(info_gpu)
 
-amazon_gpus('4070')
-
-#Le funzioni akinformatica e nexths sono molto simili a amazon e seguono lo stesso pattern:
-#Configurano l'URL e i headers.
-#Fanno il download del contenuto HTML.
-#Salva il file HTML e lo riapre per il parsing.
-#Estraggono i link ai prodotti.
-#Per ogni prodotto, estraggono i dettagli (nome, link, prezzo) e li salvano.
+#amazon_gpus('4070')
