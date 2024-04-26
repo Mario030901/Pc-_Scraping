@@ -11,7 +11,7 @@ max_elements = 3  # set a max number of links
  
 def amazon_gpus(gpu_model): # gpu_model is used to search a specified GPU model
     '''This function scrapes GPUs from amazon'''
-    info_schede = {"nome" : [], "prezzo" : [], "link" : []}  # creates a dictionary to store the informations
+    info_gpu = {"name" : [], "price" : [], "link" : []}  # creates a dictionary to store the informations
     HEADERS = ({'User-Agent': '...'})  # Imposta un User-Agent per simulare una richiesta da browser
     
     url = "https://www.amazon.it/s?k=rtx+" + str(gpu_model)  # Crea l'URL per la ricerca
@@ -19,56 +19,46 @@ def amazon_gpus(gpu_model): # gpu_model is used to search a specified GPU model
     response = requests.get(url, headers=HEADERS)  # Makes a HTTP request to the UR
     soup = bs(response.content, "html.parser")  # Analyzes the response
 
-    # Percorso dove salvare il file HTML scaricato
+    # saving HTML content to analyze it on the machine
     current_dir = os.path.dirname(__file__)
-    nome_scheda = "amazon_rtx" + str(gpu_model) + ".html"
-    file_path = os.path.join(current_dir, nome_scheda)
+    gpu_name = "amazon_rtx" + str(gpu_model) + ".html"
+    file_path = os.path.join(current_dir, gpu_name)
 
-    # Controlla se il file esiste già e in tal caso lo elimina
+    # If the file exists deletes it and resaves it
     if os.path.exists(file_path):
         os.remove(file_path)
         print(f"File {file_path} has been deleted.")
-    else:
-        print(f"File {file_path} doesn't exist.")
 
-    # Salva la nuova pagina HTML
-    with open(file_path, 'w', encoding="utf-8") as f:
+    # Saving the file
+    with open(file_path, 'w', encoding='utf-8') as f:
         f.write(soup.prettify())
-
-    # Riapre il file HTML e fa ulteriori operazioni di parsing
+        
+    # Analysis of the saved HTML file  to get products infos
     with open(file_path, "r", encoding="utf-8") as htmlfile:
         soup = bs(htmlfile, "html.parser")
-        links = soup.find_all("a", attrs={'class':'a-link-normal s-no-outline'})
-
-        links_list = []
-        elementi_aggiunti = 0
-        for link in links:
-            if elementi_aggiunti >= max_elements:
-                break
-            links_list.append("https://www.amazon.it" + link.get('href'))
-            elementi_aggiunti += 1
+        
+    links = soup.find_all('a', attrs={'class': 'a-link-normal s-no-outline'})
+    links_list = [link.get('href') for link in links[:3]]  # Limit to first 3 elements
 
         # Per ogni link trovato, scarica la pagina del prodotto e estrae le informazioni
-        for link in links_list:
-            new_webpage = requests.get(link, headers=HEADERS)
-            new_soup = bs(new_webpage.content, "html.parser")
-            
-            try:
-                title = new_soup.find("span", attrs={"id": 'productTitle'}).string.strip()
-                info_schede["nome"].append(title)
-                info_schede["link"].append(link)
-            except AttributeError:
-                pass  # Gestisce il caso in cui non si trovi il titolo
-            
-            try:
-                price = new_soup.find('span', attrs={'class': 'a-offscreen'}).string.strip()
-                info_schede["prezzo"].append(price)
-            except AttributeError:
-                pass  # Gestisce il caso in cui non si trovi il prezzo
+    for link in links_list:
+        # Per ogni link trovato, scarica la pagina del prodotto e estrae le informazioni
+        product_url = "https://www.amazon.it" + link
+        product_page = requests.get(product_url, headers=HEADERS)
+        product_soup = bs(product_page.content, 'html.parser')
+        
+        title = product_soup.find('span', attrs={'id': 'productTitle'}).get_text(strip=True)
+        try:
+            price = product_soup.find('span', attrs={'class': 'a-offscreen'}).get_text(strip=True)
+        except AttributeError:
+            price = "N/A"
 
-    return info_schede
+        info_gpu['name'].append(title)
+        info_gpu['price'].append(price)
+        info_gpu['link'].append(product_url)
+        print(info_gpu)
 
-
+amazon_gpus('4070')
 
 #Le funzioni akinformatica e nexths sono molto simili a amazon e seguono lo stesso pattern:
 #Configurano l'URL e i headers.

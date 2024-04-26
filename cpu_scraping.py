@@ -24,18 +24,18 @@ def cpu_amazon_intel(cpu_model: str): # cpu_model is used to search a specified 
     # saving HTML content to analyze it on the machine
     current_dir = os.path.dirname(__file__)
     cpu_name = f"amazon_intel_{cpu_model}.html"
-    filepath = os.path.join(current_dir, cpu_name)
+    file_path = os.path.join(current_dir, cpu_name)
     
-    # If the file exists delete it and resave it
-    if os.path.exists(filepath):
-        os.remove(filepath)
+    # If the file exists deletes it
+    if os.path.exists(file_path):
+        os.remove(file_path)
     
     # Saving the file
-    with open(filepath, 'w', encoding='utf-8') as f:
+    with open(file_path, 'w', encoding='utf-8') as f:
         f.write(soup.prettify())
     
     # Analysis of the saved HTML file  to get products infos
-    with open(filepath, 'r', encoding='utf-8') as file:
+    with open(file_path, 'r', encoding='utf-8') as file:
         soup = bs(file, 'html.parser')
     
     links = soup.find_all('a', attrs={'class': 'a-link-normal s-no-outline'})
@@ -59,4 +59,4 @@ def cpu_amazon_intel(cpu_model: str): # cpu_model is used to search a specified 
 
     return info_cpu
 
-cpu_amazon_intel('i5 14000')
+#cpu_amazon_intel('i5 14000')
