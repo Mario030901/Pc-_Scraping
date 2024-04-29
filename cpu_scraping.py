@@ -10,7 +10,7 @@ import os  # Imports library to interact with the operating system
 max_elements = 3  # set a max number of links
 
 def cpu_amazon_intel(cpu_model: str): # cpu_model is used to search a specified CPU model
-    '''This function scrapes CPUs from amazon'''
+    '''This function scrapes CPUs from amazon and downloads the amazon webpage on the machine'''
     
     info_cpu = {"name": [], "price": [], "link": []} # creates a dictionary to store the informations
     HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'} # simulates a browser request
