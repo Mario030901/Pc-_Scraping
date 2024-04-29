@@ -9,19 +9,19 @@ import os  # Imports library to interact with the operating system
 
 max_elements = 3  # set a max number of links
  
-def amazon_mother_boards(gpu_model: str): # gpu_model is used to search a specified GPU model
+def amazon_mother_boards(mb_model: str): # gpu_model is used to search a specified GPU model
     '''This function scrapes Mother Boards from amazon and downloads the amazon webpage on the machine'''
-    info_gpu = {"name" : [], "price" : [], "link" : []}  # creates a dictionary to store the informations
+    info_mb = {"name" : [], "price" : [], "link" : []}  # creates a dictionary to store the informations
     HEADERS = ({'User-Agent': '...'})  # simulates a browser request
     
-    url = "https://www.amazon.it/s?k=Asus+" + str(gpu_model)  # URL to search Intel cpus
+    url = "https://www.amazon.it/s?k=Asus+" + str(mb_model)  # URL to search Intel cpus
     
     response = requests.get(url, headers=HEADERS)  # Makes a HTTP request to the UR
     soup = bs(response.content, "html.parser")  # Analyzes the response
 
     # saving HTML content to analyze it on the machine
     current_dir = os.path.dirname(__file__)
-    motherboard_name = "amazon_Asus" + str(gpu_model) + ".html"
+    motherboard_name = "amazon_Asus" + str(mb_model) + ".html"
     file_path = os.path.join(current_dir, motherboard_name)
 
     # If the file exists deletes it and resaves it
@@ -53,9 +53,9 @@ def amazon_mother_boards(gpu_model: str): # gpu_model is used to search a specif
         except AttributeError:
             price = "N/A"
 
-        info_gpu['name'].append(title)
-        info_gpu['price'].append(price)
-        info_gpu['link'].append(product_url)
-        print(info_gpu)
+        info_mb['name'].append(title)
+        info_mb['price'].append(price)
+        info_mb['link'].append(product_url)
+        print(info_mb)
 
-amazon_mother_boards('Z790')
+#amazon_mother_boards('Z790')
