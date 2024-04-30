@@ -15,6 +15,7 @@ def pws(pws_model: str):   # power supply model is used to search a specified CP
     
     # URL to search power supplies
     url = f"https://www.amazon.it/s?k=power+supply+corsair{pws_model}"
+    title_name_check = 'power supply corsair'
 
     response = requests.get(url, headers=HEADERS)  # makes a HTTP request to the URL
     soup = bs(response.content, 'html.parser')  # Analyzes the response
@@ -52,9 +53,10 @@ def pws(pws_model: str):   # power supply model is used to search a specified CP
         except AttributeError:
             price = "N/A"
 
-        info_pws['name'].append(title)
-        info_pws['price'].append(price)
-        info_pws['link'].append(product_url)
+        if title_name_check.lower() in title.lower() and pws_model.lower() in title.lower():  
+            info_pws['name'].append(title)
+            info_pws['price'].append(price)
+            info_pws['link'].append(product_url)
 
     return info_pws
 
