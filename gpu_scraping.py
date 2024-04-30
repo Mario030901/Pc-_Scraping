@@ -4,7 +4,6 @@
 import requests  # Imports library for HTTP requests
 from bs4 import BeautifulSoup as bs  # Imports BeautifulSoup for HTML parsing
 import os  # Imports library to interact with the operating system
-#import locale  # Imports library to manage local settings (for example numbers formatting)
 # End of imports
 
 max_elements = 3  # set a max number of links

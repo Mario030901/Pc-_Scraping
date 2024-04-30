@@ -4,12 +4,11 @@
 import requests  # Imports library for HTTP requests
 from bs4 import BeautifulSoup as bs  # Imports BeautifulSoup for HTML parsing
 import os  # Imports library to interact with the operating system
-#import locale  # Imports library to manage local settings (for example numbers formatting)
 # End of imports
 
 max_elements = 3  # set a max number of links
  
-def amazon_mother_boards(mb_model: str): # gpu_model is used to search a specified GPU model
+def amazon_mother_boards(mb_model: str): # mb_model is used to search a specified GPU model
     '''This function scrapes Mother Boards from amazon and downloads the amazon webpage on the machine'''
     info_mb = {"name" : [], "price" : [], "link" : []}  # creates a dictionary to store the informations
     HEADERS = ({'User-Agent': '...'})  # simulates a browser request

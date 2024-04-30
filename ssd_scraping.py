@@ -4,7 +4,6 @@
 import requests  # Imports library for HTTP requests
 from bs4 import BeautifulSoup as bs  # Imports BeautifulSoup for HTML parsing
 import os  # Imports library to interact with the operating system
-#import locale  # Imports library to manage local settings (for example numbers formatting)
 # End of imports
 
 max_elements = 3  # set a max number of links
@@ -14,7 +13,7 @@ def amazon_ssd(ssd_model: str): # ssd_model is used to search a specified GPU mo
     info_ssd = {"name" : [], "price" : [], "link" : []}  # creates a dictionary to store the informations
     HEADERS = ({'User-Agent': '...'})  # simulates a browser request
     
-    url = "https://www.amazon.it/s?k=Samsung+ssd+" + str(ssd_model)  # URL to search Intel cpus
+    url = "https://www.amazon.it/s?k=ssd+" + str(ssd_model)  # URL to search Intel cpus
     
     response = requests.get(url, headers=HEADERS)  # Makes a HTTP request to the UR
     soup = bs(response.content, "html.parser")  # Analyzes the response
