@@ -1,36 +1,48 @@
-import requests
-from bs4 import BeautifulSoup as bs
-import os
+# Scraping amazon RAMs
 
-def ram(ram_model: str):
+# Imports
+import requests # Imports library for HTTP requests
+from bs4 import BeautifulSoup as bs # Imports BeautifulSoup for HTML parsing
+import os # Imports library to interact with the operating system
+# End of imports
+
+max_elements = 3  # set a max number of links
+
+def ram(ram_model: str): # ram_model is used to search a specified GPU model
     '''This function scrapes RAM modules from Amazon and saves the webpage for analysis.'''
     
-    info_ram = {"name": [], "price": [], "link": []}
-    HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'}
+    info_ram = {"name": [], "price": [], "link": []} # creates a dictionary to store the informations
+    HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'} # simulates a browser request
     
     # URL to search RAM modules
-    url = f"https://www.amazon.it/s?k=CORSAIR-VENGEANCE{ram_model}"
+    url = f"https://www.amazon.it/s?k=CORSAIR+VENGEANCE+{ram_model}" # URL to search RAMs
+    title_name_check = 'corsair vengeance'
 
-    response = requests.get(url, headers=HEADERS)
-    soup = bs(response.content, 'html.parser')
+    response = requests.get(url, headers=HEADERS) # Makes a HTTP request to the URL
+    soup = bs(response.content, 'html.parser') # Analyzes the response
 
     # Saving HTML content to analyze it on the machine
     current_dir = os.path.dirname(__file__)
     ram_name = f"amazon_ram_{ram_model}.html"
     file_path = os.path.join(current_dir, ram_name)
     
+    # If the file exists deletes it and resaves it
     if os.path.exists(file_path):
         os.remove(file_path)
+        print(f"File {file_path} has been deleted.")
 
+    # Saving the file
     with open(file_path, 'w', encoding='utf-8') as f:
         f.write(soup.prettify())
 
+    # Analysis of the saved HTML file  to get products infos
     with open(file_path, 'r', encoding='utf-8') as file:
         soup = bs(file, 'html.parser')
 
     links = soup.find_all('a', attrs={'class': 'a-link-normal s-no-outline'})
     links_list = [link.get('href') for link in links[:3]]  # Limit to first 3 elements
 
+    # Download of the page and info extraction for every product
     for link in links_list:
         product_url = "https://www.amazon.it" + link
         product_page = requests.get(product_url, headers=HEADERS)
@@ -42,8 +54,9 @@ def ram(ram_model: str):
         except AttributeError:
             price = "N/A"
 
-        info_ram['name'].append(title)
-        info_ram['price'].append(price)
-        info_ram['link'].append(product_url)
+        if title_name_check.lower() in title.lower() and ram_model.lower() in title.lower(): # this if saves only the infos of the requested product
+            info_ram['name'].append(title)
+            info_ram['price'].append(price)
+            info_ram['link'].append(product_url)
 
     return info_ram

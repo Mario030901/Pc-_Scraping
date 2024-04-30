@@ -53,7 +53,7 @@ def case(case_model: str): # case_model is used to search a specified case model
         except AttributeError:
             price = "N/A"
 
-        if title_name_check.lower() in title.lower() and case_model.lower() in title.lower():
+        if title_name_check.lower() in title.lower() and case_model.lower() in title.lower(): # this if saves only the infos of the requested product
             info_case['name'].append(title)
             info_case['price'].append(price)
             info_case['link'].append(product_url)

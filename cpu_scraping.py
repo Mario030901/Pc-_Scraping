@@ -53,7 +53,7 @@ def cpu(cpu_model: str): # cpu_model is used to search a specified CPU model
         except AttributeError:
             price = "N/A"
 
-        if title_name_check.lower() in title.lower() and cpu_model.lower() in title.lower():
+        if title_name_check.lower() in title.lower() and cpu_model.lower() in title.lower(): # this if saves only the infos of the requested product
             info_cpu['name'].append(title)
             info_cpu['price'].append(price)
             info_cpu['link'].append(product_url)

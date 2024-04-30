@@ -53,7 +53,7 @@ def gpu(gpu_model: str): # gpu_model is used to search a specified GPU model
         except AttributeError:
             price = "N/A"
 
-        if title_name_check.lower() in title.lower() and gpu_model.lower() in title.lower():
+        if title_name_check.lower() in title.lower() and gpu_model.lower() in title.lower(): # this if saves only the infos of the requested product
             info_gpu['name'].append(title)
             info_gpu['price'].append(price)
             info_gpu['link'].append(product_url)

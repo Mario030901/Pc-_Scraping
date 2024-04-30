@@ -53,7 +53,7 @@ def dissipator(dissipator_model: str): # dissipator_model is used to search a sp
         except AttributeError:
             price = "N/A"
 
-        if title_name_check.lower() in title.lower() and dissipator_model.lower() in title.lower():
+        if title_name_check.lower() in title.lower() and dissipator_model.lower() in title.lower(): # this if saves only the infos of the requested product
             info_dissipator['name'].append(title)
             info_dissipator['price'].append(price)
             info_dissipator['link'].append(product_url)

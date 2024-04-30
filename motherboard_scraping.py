@@ -53,7 +53,7 @@ def amazon_mother_boards(mb_model: str): # mb_model is used to search a specifie
         except AttributeError:
             price = "N/A"
 
-        if title_name_check.lower() in title.lower() and mb_model.lower() in title.lower():
+        if title_name_check.lower() in title.lower() and mb_model.lower() in title.lower(): # this if saves only the infos of the requested product
             info_mb['name'].append(title)
             info_mb['price'].append(price)
             info_mb['link'].append(product_url)
