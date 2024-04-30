@@ -1,6 +1,12 @@
-import requests
-from bs4 import BeautifulSoup as bs
-import os
+#scraping amazon power supply 
+
+# Imports
+import requests  # Imports library for HTTP requests
+from bs4 import BeautifulSoup as bs  # Imports BeautifulSoup for HTML parsing
+import os  # Imports library to interact with the operating system
+# End of imports
+
+max_elements = 3  # set a max number of links
 
 def pws(pws_model: str):   # power supply model is used to search a specified CPU model
     
