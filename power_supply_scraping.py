@@ -53,7 +53,7 @@ def pws(pws_model: str):   # power supply model is used to search a specified CP
         except AttributeError:
             price = "N/A"
 
-        if title_name_check.lower() in title.lower() and pws_model.lower() in title.lower():  
+        if title_name_check.lower() in title.lower() and pws_model.lower() in title.lower():  # this if saves only the infos of the requested product
             info_pws['name'].append(title)
             info_pws['price'].append(price)
             info_pws['link'].append(product_url)
