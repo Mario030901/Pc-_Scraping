@@ -3,20 +3,19 @@ from bs4 import BeautifulSoup as bs
 import os
 
 def pws(psu_model: str):
-    '''This function scrapes power supplies from Amazon and saves the webpage for analysis.'''
     
     info_psu = {"name": [], "price": [], "link": []}
     HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'}
     
     # URL to search power supplies
-    url = f"https://www.amazon.it/s?k={psu_model}+power+supply"
+    url = f"https://www.amazon.it/s?k=power+supply+corsair{psu_model}"
 
     response = requests.get(url, headers=HEADERS)
     soup = bs(response.content, 'html.parser')
 
     # Saving HTML content to analyze it on the machine
     current_dir = os.path.dirname(__file__)
-    psu_name = f"amazon_psu_{psu_model}.html"
+    psu_name = f"amazon_pws_{psu_model}.html"
     file_path = os.path.join(current_dir, psu_name)
     
     if os.path.exists(file_path):
