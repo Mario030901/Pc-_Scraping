@@ -8,12 +8,13 @@ import os  # Imports library to interact with the operating system
 
 max_elements = 3  # set a max number of links
  
-def amazon_gpus(gpu_model: str): # gpu_model is used to search a specified GPU model
+def gpu(gpu_model: str): # gpu_model is used to search a specified GPU model
     '''This function scrapes GPUs from amazon and downloads the amazon webpage on the machine'''
     info_gpu = {"name" : [], "price" : [], "link" : []}  # creates a dictionary to store the informations
     HEADERS = ({'User-Agent': '...'})  # simulates a browser request
     
     url = "https://www.amazon.it/s?k=rtx+" + str(gpu_model)  # URL to search Intel cpus
+    title_name_check = 'rtx'
     
     response = requests.get(url, headers=HEADERS)  # Makes a HTTP request to the UR
     soup = bs(response.content, "html.parser")  # Analyzes the response
@@ -52,9 +53,11 @@ def amazon_gpus(gpu_model: str): # gpu_model is used to search a specified GPU m
         except AttributeError:
             price = "N/A"
 
-        info_gpu['name'].append(title)
-        info_gpu['price'].append(price)
-        info_gpu['link'].append(product_url)
-        print(info_gpu)
+        if title_name_check.lower() in title.lower() and gpu_model.lower() in title.lower():
+            info_gpu['name'].append(title)
+            info_gpu['price'].append(price)
+            info_gpu['link'].append(product_url)
+        
+    return info_gpu
 
-#amazon_gpus('4070')
+#gpu('4070')

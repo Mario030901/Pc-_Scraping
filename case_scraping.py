@@ -8,22 +8,23 @@ import os  # Imports library to interact with the operating system
 
 max_elements = 3  # set a max number of links
 
-def cases_amazon_corsair(case_model: str): # case_model is used to search a specified CPU model
-    '''This function scrapes CPUs from amazon and downloads the amazon webpage on the machine'''
+def case(case_model: str): # case_model is used to search a specified case model
+    '''This function scrapes Corsair cases from amazon and downloads the amazon webpage on the machine'''
     
     info_case = {"name": [], "price": [], "link": []} # creates a dictionary to store the informations
     HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'} # simulates a browser request
     
-    # URL to search Intel cpus
+    # URL to search corsair cases
     url = f"https://www.amazon.it/s?k=case_corsair+{case_model}"
+    title_name_check = 'case corsair'
 
     response = requests.get(url, headers=HEADERS) # makes a HTTP request to the URL
     soup = bs(response.content, 'html.parser') # Analyzes the response
 
     # saving HTML content to analyze it on the machine
     current_dir = os.path.dirname(__file__)
-    cpu_name = f"amazon_corsair_{case_model}.html"
-    file_path = os.path.join(current_dir, cpu_name)
+    case_name = f"amazon_corsair_{case_model}.html"
+    file_path = os.path.join(current_dir, case_name)
     
     # If the file exists deletes it
     if os.path.exists(file_path):
@@ -52,10 +53,11 @@ def cases_amazon_corsair(case_model: str): # case_model is used to search a spec
         except AttributeError:
             price = "N/A"
 
-        info_case['name'].append(title)
-        info_case['price'].append(price)
-        info_case['link'].append(product_url)
+        if title_name_check.lower() in title.lower() and case_model.lower() in title.lower():
+            info_case['name'].append(title)
+            info_case['price'].append(price)
+            info_case['link'].append(product_url)
 
     return info_case
 
-#cases_amazon_corsair('crystal 570X')
+#case('crystal 570X')

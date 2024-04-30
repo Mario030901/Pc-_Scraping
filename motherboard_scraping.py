@@ -14,6 +14,7 @@ def amazon_mother_boards(mb_model: str): # mb_model is used to search a specifie
     HEADERS = ({'User-Agent': '...'})  # simulates a browser request
     
     url = "https://www.amazon.it/s?k=Asus+" + str(mb_model)  # URL to search Intel cpus
+    title_name_check = 'asus'
     
     response = requests.get(url, headers=HEADERS)  # Makes a HTTP request to the UR
     soup = bs(response.content, "html.parser")  # Analyzes the response
@@ -52,9 +53,11 @@ def amazon_mother_boards(mb_model: str): # mb_model is used to search a specifie
         except AttributeError:
             price = "N/A"
 
-        info_mb['name'].append(title)
-        info_mb['price'].append(price)
-        info_mb['link'].append(product_url)
-        print(info_mb)
+        if title_name_check.lower() in title.lower() and mb_model.lower() in title.lower():
+            info_mb['name'].append(title)
+            info_mb['price'].append(price)
+            info_mb['link'].append(product_url)
+        
+    return info_mb
 
 #amazon_mother_boards('Z790')

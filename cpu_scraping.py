@@ -8,7 +8,7 @@ import os  # Imports library to interact with the operating system
 
 max_elements = 3  # set a max number of links
 
-def cpu_amazon_intel(cpu_model: str): # cpu_model is used to search a specified CPU model
+def cpu(cpu_model: str): # cpu_model is used to search a specified CPU model
     '''This function scrapes CPUs from amazon and downloads the amazon webpage on the machine'''
     
     info_cpu = {"name": [], "price": [], "link": []} # creates a dictionary to store the informations
@@ -16,6 +16,7 @@ def cpu_amazon_intel(cpu_model: str): # cpu_model is used to search a specified 
     
     # URL to search Intel cpus
     url = f"https://www.amazon.it/s?k=intel+core+{cpu_model}"
+    title_name_check = 'intel core'
 
     response = requests.get(url, headers=HEADERS) # makes a HTTP request to the URL
     soup = bs(response.content, 'html.parser') # Analyzes the response
@@ -52,9 +53,10 @@ def cpu_amazon_intel(cpu_model: str): # cpu_model is used to search a specified 
         except AttributeError:
             price = "N/A"
 
-        info_cpu['name'].append(title)
-        info_cpu['price'].append(price)
-        info_cpu['link'].append(product_url)
+        if title_name_check.lower() in title.lower() and cpu_model.lower() in title.lower():
+            info_cpu['name'].append(title)
+            info_cpu['price'].append(price)
+            info_cpu['link'].append(product_url)
 
     return info_cpu
 

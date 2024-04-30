@@ -14,6 +14,7 @@ def amazon_ssd(ssd_model: str): # ssd_model is used to search a specified GPU mo
     HEADERS = ({'User-Agent': '...'})  # simulates a browser request
     
     url = "https://www.amazon.it/s?k=ssd+" + str(ssd_model)  # URL to search Intel cpus
+    title_name_check = 'ssd'
     
     response = requests.get(url, headers=HEADERS)  # Makes a HTTP request to the UR
     soup = bs(response.content, "html.parser")  # Analyzes the response
@@ -52,9 +53,11 @@ def amazon_ssd(ssd_model: str): # ssd_model is used to search a specified GPU mo
         except AttributeError:
             price = "N/A"
 
-        info_ssd['name'].append(title)
-        info_ssd['price'].append(price)
-        info_ssd['link'].append(product_url)
-        print(info_ssd)
+        if title_name_check.lower() in title.lower() and ssd_model.lower() in title.lower():
+            info_ssd['name'].append(title)
+            info_ssd['price'].append(price)
+            info_ssd['link'].append(product_url)
+        
+    return info_ssd
 
 #amazon_ssd('1T')
