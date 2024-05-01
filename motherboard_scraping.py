@@ -57,7 +57,9 @@ def amazon_mother_boards(mb_model: str): # mb_model is used to search a specifie
             info_mb['name'].append(title)
             info_mb['price'].append(price)
             info_mb['link'].append(product_url)
-        
+
+    '''if os.path.exists(file_path):
+        os.remove(file_path)'''
     return info_mb
 
 #amazon_mother_boards('Z790')

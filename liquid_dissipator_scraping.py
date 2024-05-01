@@ -58,6 +58,8 @@ def dissipator(dissipator_model: str): # dissipator_model is used to search a sp
             info_dissipator['price'].append(price)
             info_dissipator['link'].append(product_url)
 
+    if os.path.exists(file_path):
+        os.remove(file_path)
     return info_dissipator
 
 '''dissipator('420')

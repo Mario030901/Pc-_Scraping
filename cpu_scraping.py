@@ -59,6 +59,8 @@ def cpu(cpu_model: str): # cpu_model is used to search a specified CPU model
             info_cpu['price'].append(price)
             info_cpu['link'].append(product_url)
 
+    if os.path.exists(file_path):
+        os.remove(file_path)
     return info_cpu
 
 #print(cpu('i5 14500'))

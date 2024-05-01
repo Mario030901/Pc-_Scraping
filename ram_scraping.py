@@ -59,4 +59,6 @@ def ram(ram_model: str): # ram_model is used to search a specified GPU model
             info_ram['price'].append(price)
             info_ram['link'].append(product_url)
 
+    '''if os.path.exists(file_path):
+        os.remove(file_path)'''
     return info_ram
