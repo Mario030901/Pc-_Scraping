@@ -1,45 +1,56 @@
-#import page_processing as pp
+# Import
+import case_scraping as c
+import cpu_scraping as cpu
+import gpu_scraping as gpu
+import liquid_dissipator_scraping as ld
+import motherboard_scraping as mb
+import ssd_scraping as ssd
+import ram_scraping as ram
+import power_supply_scraping as pws 
+# End of import
+
+print("Before we start please note that we scrape from amazon, so, if you insert a model that doesn't exist you won't get nothing. Be careful")
 
 # Variabili iniziali
 controllo = False
-scheda = ""
+gpu_model = ""
+cpu_infos={}
 scelta = 0
 budget = 0
 preferenza = ""
 
 # Prima di procedere con la scelta della scheda, chiedi il budget e le preferenze dell'utente
-try:
-    budget = float(input("Quanto è il tuo budget per il PC in euro? "))
-    print("Preferiresti avere un PC più performante in:")
-    print("(1) GPU - Grafica")
-    print("(2) CPU - Processore")
+'''try:
+    budget = float(input("Insert the PC budget in euro\n"))
+    print("Would you prefer a PC more performing in:\n")
+    print("(1) GPU - Graphics | (2) CPU - Processor")
 
     while True:
-        preferenza_scelta = int(input("Inserisci il numero corrispondente alla tua preferenza: "))
+        preferenza_scelta = int(input())
     
         if preferenza_scelta == 1:
             preferenza = "GPU"
-            print("Per una GPU ottimale, considera la serie 4000 di NVIDIA, come la RTX 4060, 4070, 4080 o la potente 4090.")
+            print("For an optimal GPU, we suggest the 4000 serie of NVIDIA, like RTX 4060, 4070, 4080 or the powerful 4090.")
             break
         elif preferenza_scelta == 2:
             preferenza = "CPU"
-            print("Per una CPU di ultima generazione, considera i processori di 14ª generazione. Nota: i processori di 13ª generazione tendono a surriscaldarsi secondo la nostra esperienza.")
+            print("For the latest generation CPUs, we suggest 14th generation processors. Note: We know thanks to experience that 13th generation processors tend to overheat.")
             break
         else:
-            print("Valore non corretto, inserisci 1 o 2 per proseguire.")
+            print("Wrong value, insert 1 or 2 to go on.")
 except ValueError as e:
-    print(f"Errore: {e}")
+    print(f"Error: {e}")
     exit()
 
 # Ciclo while per la scelta della serie e del modello della scheda video3
 try:
      # Chiede all'utente di scegliere tra serie 3000 o 4000 RTX
-    scelta = int(input("Inserisci (1) per scegliere la serie 3000 RTX | (2) per scegliere la serie 4000 RTX: "))
+    scelta = int(input("Insert: (1) to choose serie 3000 RTX | (2) to choose serie 4000 RTX: "))
         
     if scelta == 1:
         while True:
             try:
-                print("Inserisci (50) per scegliere la 3050 RTX")
+                print("Insert (50) to choose the 3050 RTX")
                 print("Inserisci (60) per scegliere la 3060 RTX")
                 print("Inserisci (70) per scegliere la 3070 RTX")
                 print("Inserisci (80) per scegliere la 3080 RTX")
@@ -107,9 +118,22 @@ try:
             raise ValueError()
 except ValueError:
     print("Devi inserire un numero intero valido")
-    scelta2 = 0
-
-while True:  #scelta visualizzazione informazioni
+    scelta2 = 0'''
+    
+# Request of the desired CPU
+print("Request of the desired Intel CPU (processor)\n")
+while True: #this while breaks when it finds a link, or better when the inserted model exists on amazon
+    print("example of attended insert: i5 14500\n")
+    cpu_infos=cpu.cpu(input("insert the desired cpu:\n"))
+    if cpu_infos["link"]!=[]:
+        print(cpu_infos)
+        break
+    else: 
+        print(cpu_infos)
+        print("the desired model doesn't exist on amazon, try something else\n")
+    
+    
+'''while True:  #scelta visualizzazione informazioni
     try:
         print("Che cosa vuoi fare?\n")
         print("(1) Mostra il prezzo più basso | (2) Mostra il prezzo più alto")
@@ -293,5 +317,5 @@ while True:  #scelta visualizzazione informazioni
         else:
             raise ValueError()
     except ValueError:
-        print("Devi inserire un numero intero valido")
+        print("Devi inserire un numero intero valido")'''
 

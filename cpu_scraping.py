@@ -6,17 +6,18 @@ from bs4 import BeautifulSoup as bs  # Imports BeautifulSoup for HTML parsing
 import os  # Imports library to interact with the operating system
 # End of imports
 
-max_elements = 3  # set a max number of links
+max_elements = 5  # set a max number of links
 
 def cpu(cpu_model: str): # cpu_model is used to search a specified CPU model
     '''This function scrapes CPUs from amazon and downloads the amazon webpage on the machine'''
     
+    cpu_models=cpu_model.split(" ")
     info_cpu = {"name": [], "price": [], "link": []} # creates a dictionary to store the informations
     HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'} # simulates a browser request
     
     # URL to search Intel cpus
     url = f"https://www.amazon.it/s?k=intel+core+{cpu_model}"
-    title_name_check = 'intel core'
+    title_name_check = ['intel', 'core']
 
     response = requests.get(url, headers=HEADERS) # makes a HTTP request to the URL
     soup = bs(response.content, 'html.parser') # Analyzes the response
@@ -39,7 +40,7 @@ def cpu(cpu_model: str): # cpu_model is used to search a specified CPU model
         soup = bs(file, 'html.parser')
     
     links = soup.find_all('a', attrs={'class': 'a-link-normal s-no-outline'})
-    links_list = [link.get('href') for link in links[:3]]  # Limit to first 3 elements
+    links_list = [link.get('href') for link in links[:5]]  # Limit to first 3 elements
 
     # Download of the page and info extraction for every product
     for link in links_list:
@@ -53,11 +54,11 @@ def cpu(cpu_model: str): # cpu_model is used to search a specified CPU model
         except AttributeError:
             price = "N/A"
 
-        if title_name_check.lower() in title.lower() and cpu_model.lower() in title.lower(): # this if saves only the infos of the requested product
+        if title_name_check[0].lower() in title.lower() and title_name_check[1].lower() in title.lower() and cpu_models[0].lower() in title.lower() and cpu_models[1].lower() in title.lower(): # this if saves only the infos of the requested product
             info_cpu['name'].append(title)
             info_cpu['price'].append(price)
             info_cpu['link'].append(product_url)
 
     return info_cpu
 
-#cpu_amazon_intel('i5 14000')
+#print(cpu('i5 14500'))

@@ -11,6 +11,7 @@ max_elements = 3  # set a max number of links
 def case(case_model: str): # case_model is used to search a specified case model
     '''This function scrapes Corsair cases from amazon and downloads the amazon webpage on the machine'''
     
+    case_models=case_model.split(" ")
     info_case = {"name": [], "price": [], "link": []} # creates a dictionary to store the informations
     HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'} # simulates a browser request
     
@@ -53,7 +54,7 @@ def case(case_model: str): # case_model is used to search a specified case model
         except AttributeError:
             price = "N/A"
 
-        if title_name_check.lower() in title.lower() and case_model.lower() in title.lower(): # this if saves only the infos of the requested product
+        if title_name_check.lower() in title.lower() and case_models[0].lower() in title.lower() and case_models[1].lower() in title.lower(): # this if saves only the infos of the requested product
             info_case['name'].append(title)
             info_case['price'].append(price)
             info_case['link'].append(product_url)
