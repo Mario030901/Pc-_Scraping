@@ -76,7 +76,6 @@ def gpu(gpu_model: str): # gpu_model is used to search a specified GPU model
             # If the file exists deletes it and resaves it
             if os.path.exists(file_path):
                 os.remove(file_path)
-                print(f"File {file_path} has been deleted.")
 
             # Saving the file
             with open(file_path, 'w', encoding='utf-8') as f:
