@@ -23,7 +23,7 @@ cpu_infos={}
 scelta = 0
 budget = 0
 preferenza = ""
-cont,cheapest_cpu, cheapest_case, cheapest_dissipator, cheapest_gpu = 0, {}, {}, {}, {}
+cont,cheapest_cpu, cheapest_case, cheapest_dissipator, cheapest_gpu, cheapest_ssd, cheapest_pws, cheapest_motherBoard, cheapest_ram = 0, {}, {}, {}, {}, {}, {}, {}, {}
 
 # Prima di procedere con la scelta della scheda, chiedi il budget e le preferenze dell'utente
 '''try:
@@ -60,6 +60,18 @@ while True: #this while breaks when it finds a link, or better when the inserted
     else: 
         print("the desired model doesn't exist on amazon, try searching something else\n")
         
+# Request of the desired MotherBoard
+print("Request of the desired MoatherBoard\n")
+while True: #this while breaks when it finds a link, or better when the inserted model exists on amazon
+    print("example of attended insert: B650 PLUS\n")
+    mb_infos=mb.amazon_mother_boards(input("insert the desired MotherBoard:\n"))
+    if cpu_infos["link"]!=[]:
+        break
+    else: 
+        print("the desired model doesn't exist on amazon, try searching something else\n")
+        
+        
+        
 # Request of the desired Case
 print("Request of the desired Corsair Case\n")
 while True: #this while breaks when it finds a link, or better when the inserted model exists on amazon
@@ -86,6 +98,16 @@ while True: #this while breaks when it finds a link, or better when the inserted
     print("example of attended insert: 4070 | 4070 super\n")
     gpu_infos=gpu.gpu(input("insert the desired GPU model:\n"))
     if gpu_infos["link"]!=[]:
+        break
+    else: 
+        print("the desired model doesn't exist on amazon, try searching something else\n")
+        
+# Request of the desired SSD
+print("Request of the desired SSD\n")
+while True: #this while breaks when it finds a link, or better when the inserted model exists on amazon
+    print("example of attended insert: Samsung 1T\n")
+    ssd_infos=ssd.ssd(input("insert the desired SSD model:\n"))
+    if ssd_infos["link"]!=[]:
         break
     else: 
         print("the desired model doesn't exist on amazon, try searching something else\n")
@@ -175,6 +197,56 @@ if scelta == 1: #searches the cheapest products and downloades the amazon webpag
         os.remove(dissipator_file_path)
     with open(dissipator_file_path, 'w', encoding='utf-8') as f:
         f.write(soup.prettify())
+    
+    print("downloading MotherBoard file")
+    for i in zip(mb_infos["price"], mb_infos["link"]):
+        if cont==0:
+            cheapest_motherBoard["price"]=i[0]
+            cheapest_motherBoard["link"]=i[1]
+        else:
+            if cheapest_motherBoard["price"]>i[0]: 
+                cheapest_motherBoard["price"] = i[0]
+                cheapest_motherBoard["link"]=i[1]
+        cont+=1
+    cont=0
+    
+    # Saving the file
+    current_dir = os.path.dirname(__file__)
+    mb_file = f"cheapest_motherBoard.html"
+    mb_file_path = os.path.join(current_dir, mb_file)
+    HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'} # simulates a browser request
+    response = requests.get(cheapest_motherBoard["link"], headers=HEADERS) # makes a HTTP request to the URL
+    soup = bs(response.content, 'html.parser') # Analyzes the response
+    # If the file exists deletes it
+    if os.path.exists(mb_file_path):
+        os.remove(mb_file_path)
+    with open(mb_file_path, 'w', encoding='utf-8') as f:
+        f.write(soup.prettify())
+    
+    print("downloading SSD file")
+    for i in zip(ssd_infos["price"], ssd_infos["link"]):
+        if cont==0:
+            cheapest_ssd["price"]=i[0]
+            cheapest_ssd["link"]=i[1]
+        else:
+            if cheapest_ssd["price"]>i[0]: 
+                cheapest_ssd["price"] = i[0]
+                cheapest_ssd["link"]=i[1]
+        cont+=1
+    cont=0
+    
+    # Saving the file
+    current_dir = os.path.dirname(__file__)
+    ssd_file = f"cheapest_ssd.html"
+    ssd_file_path = os.path.join(current_dir, ssd_file)
+    HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'} # simulates a browser request
+    response = requests.get(cheapest_ssd["link"], headers=HEADERS) # makes a HTTP request to the URL
+    soup = bs(response.content, 'html.parser') # Analyzes the response
+    # If the file exists deletes it
+    if os.path.exists(ssd_file_path):
+        os.remove(ssd_file_path)
+    with open(ssd_file_path, 'w', encoding='utf-8') as f:
+        f.write(soup.prettify())
 
     print("downloading GPU file")
     for i in zip(gpu_infos["price"], gpu_infos["link"]):
@@ -200,6 +272,59 @@ if scelta == 1: #searches the cheapest products and downloades the amazon webpag
         os.remove(gpu_file_path)
     with open(gpu_file_path, 'w', encoding='utf-8') as f:
         f.write(soup.prettify())
+        .........CAMBIARE NOMI POWER SUPPLY
+    print("downloading GPU file")
+    for i in zip(gpu_infos["price"], gpu_infos["link"]):
+        if cont==0:
+            cheapest_gpu["price"]=i[0]
+            cheapest_gpu["link"]=i[1]
+        else:
+            if cheapest_gpu["price"]>i[0]: 
+                cheapest_gpu["price"] = i[0]
+                cheapest_gpu["link"]=i[1]
+        cont+=1
+    cont=0
+    
+    # Saving the file
+    current_dir = os.path.dirname(__file__)
+    gpu_file = f"cheapest_powerSupply.html"
+    gpu_file_path = os.path.join(current_dir, gpu_file)
+    HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'} # simulates a browser request
+    response = requests.get(cheapest_gpu["link"], headers=HEADERS) # makes a HTTP request to the URL
+    soup = bs(response.content, 'html.parser') # Analyzes the response
+    # If the file exists deletes it
+    if os.path.exists(gpu_file_path):
+        os.remove(gpu_file_path)
+    with open(gpu_file_path, 'w', encoding='utf-8') as f:
+        f.write(soup.prettify())
+        
+        ....... CAMBIARE RAM 
+    print("downloading GPU file")
+    for i in zip(gpu_infos["price"], gpu_infos["link"]):
+        if cont==0:
+            cheapest_gpu["price"]=i[0]
+            cheapest_gpu["link"]=i[1]
+        else:
+            if cheapest_gpu["price"]>i[0]: 
+                cheapest_gpu["price"] = i[0]
+                cheapest_gpu["link"]=i[1]
+        cont+=1
+    cont=0
+    
+    # Saving the file
+    current_dir = os.path.dirname(__file__)
+    gpu_file = f"cheapest_ram.html"
+    gpu_file_path = os.path.join(current_dir, gpu_file)
+    HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'} # simulates a browser request
+    response = requests.get(cheapest_gpu["link"], headers=HEADERS) # makes a HTTP request to the URL
+    soup = bs(response.content, 'html.parser') # Analyzes the response
+    # If the file exists deletes it
+    if os.path.exists(gpu_file_path):
+        os.remove(gpu_file_path)
+    with open(gpu_file_path, 'w', encoding='utf-8') as f:
+        f.write(soup.prettify())
+        .........
+        
 
 elif scelta==2:
     print("searching cheaper CPU")
@@ -209,7 +334,7 @@ elif scelta==2:
             cheapest_cpu["price"]=i[1]
             cheapest_cpu["link"]=i[2]
         else:
-            if cheapest_cpu["price"]>i[0]: 
+            if cheapest_cpu["price"]>i[1]: 
                 cheapest_cpu["title"]=i[0]
                 cheapest_cpu["price"]=i[1]
                 cheapest_cpu["link"]=i[2]
@@ -225,7 +350,7 @@ elif scelta==2:
             cheapest_case["price"]=i[1]
             cheapest_case["link"]=i[2]
         else:
-            if cheapest_case["price"]>i[0]: 
+            if cheapest_case["price"]>i[1]: 
                 cheapest_case["title"]=i[0]
                 cheapest_case["price"]=i[1]
                 cheapest_case["link"]=i[2]
@@ -241,7 +366,7 @@ elif scelta==2:
             cheapest_dissipator["price"]=i[1]
             cheapest_dissipator["link"]=i[2]
         else:
-            if cheapest_dissipator["price"]>i[0]: 
+            if cheapest_dissipator["price"]>i[1]: 
                 cheapest_dissipator["title"]=i[0]
                 cheapest_dissipator["price"]=i[1]
                 cheapest_dissipator["link"]=i[2]
@@ -250,14 +375,14 @@ elif scelta==2:
     print(f"I've found it\n")
     cheapest_components["liquid_freezer"]=cheapest_dissipator
     
-    print("searching cheaper GPU")
+    print("searching cheapest GPU")
     for i in zip(gpu_infos["name"], gpu_infos["price"], gpu_infos["link"]):
         if cont==0:
             cheapest_gpu["title"]=i[0]
             cheapest_gpu["price"]=i[1]
             cheapest_gpu["link"]=i[2]
         else:
-            if cheapest_gpu["price"]>i[0]: 
+            if cheapest_gpu["price"]>i[1]: 
                 cheapest_gpu["title"]=i[0]
                 cheapest_gpu["price"]=i[1]
                 cheapest_gpu["link"]=i[2]
@@ -265,6 +390,25 @@ elif scelta==2:
     cont=0
     print(f"I've found it\n{cheapest_gpu}")
     cheapest_components["gpu"]=cheapest_gpu
-    print(cheapest_components)
+    
+    
+
+    print("searching cheapest SSD")
+    for i in zip(ssd_infos["name"], ssd_infos["price"], ssd_infos["link"]):
+        if cont==0:
+            cheapest_ssd["title"]=i[0]
+            cheapest_ssd["price"]=i[1]
+            cheapest_ssd["link"]=i[2]
+        else:
+            if cheapest_ssd["price"]>i[1]: 
+                cheapest_ssd["title"]=i[0]
+                cheapest_ssd["price"]=i[1]
+                cheapest_ssd["link"]=i[2]
+        cont+=1
+    cont=0
+    print(f"I've found it\n")
+    cheapest_components["liquid_freezer"]=cheapest_ssd
+    
+    #print(cheapest_components)
 else:
     print("We hope you had a nice time and you've found the perfect components for your PC. We hope to see you soon!")
