@@ -6,8 +6,6 @@ from bs4 import BeautifulSoup as bs  # Imports BeautifulSoup for HTML parsing
 import os  # Imports library to interact with the operating system
 # End of imports
 
-max_elements = 3  # set a max number of links
-
 def pws(pws_model: str):   # power supply model is used to search a specified CPU model
     
     info_pws = {"name": [], "price": [], "link": []}
@@ -63,4 +61,4 @@ def pws(pws_model: str):   # power supply model is used to search a specified CP
     return info_pws
 
 # Example usage
-# psu_amazon('650W')
+# pws_amazon('650W')

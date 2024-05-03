@@ -6,8 +6,6 @@ from bs4 import BeautifulSoup as bs  # Imports BeautifulSoup for HTML parsing
 import os  # Imports library to interact with the operating system
 # End of imports
 
-max_elements = 5  # set a max number of links
- 
 def gpu(gpu_model: str): # gpu_model is used to search a specified GPU model
     '''This function scrapes GPUs from amazon and downloads the amazon webpage on the machine'''
     if " " in gpu_model:

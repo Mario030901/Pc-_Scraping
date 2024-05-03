@@ -6,8 +6,6 @@ from bs4 import BeautifulSoup as bs # Imports BeautifulSoup for HTML parsing
 import os # Imports library to interact with the operating system
 # End of imports
 
-max_elements = 3  # set a max number of links
-
 def ram(ram_model: str): # ram_model is used to search a specified GPU model
     '''This function scrapes RAM modules from Amazon and saves the webpage for analysis.'''
     

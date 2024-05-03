@@ -6,8 +6,6 @@ from bs4 import BeautifulSoup as bs  # Imports BeautifulSoup for HTML parsing
 import os  # Imports library to interact with the operating system
 # End of imports
 
-max_elements = 3  # set a max number of links
-
 def dissipator(dissipator_model: str): # dissipator_model is used to search a specified liquid freezer model
     '''This function scrapes Liquid Freezers from amazon and downloads the amazon webpage on the machine'''
     

@@ -6,8 +6,6 @@ from bs4 import BeautifulSoup as bs  # Imports BeautifulSoup for HTML parsing
 import os  # Imports library to interact with the operating system
 # End of imports
 
-max_elements = 5  # set a max number of links
-
 def case(case_model: str): # case_model is used to search a specified case model
     '''This function scrapes Corsair cases from amazon and downloads the amazon webpage on the machine'''
     

@@ -6,7 +6,6 @@ from bs4 import BeautifulSoup as bs  # Imports BeautifulSoup for HTML parsing
 import os  # Imports library to interact with the operating system
 # End of imports
 
- 
 def amazon_ssd(ssd_model: str): # ssd_model is used to search a specified GPU model
     '''This function scrapes SSDs from amazon and downloads the amazon webpage on the machine'''
     if " " in ssd_model:
