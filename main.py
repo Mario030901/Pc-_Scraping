@@ -113,6 +113,26 @@ while True: #this while breaks when it finds a link, or better when the inserted
     else: 
         print("the desired model doesn't exist on amazon, try searching something else\n")
         
+# Request of the desired Power Supply
+print("Request of the desired Corsair Power Supply\n")
+while True: #this while breaks when it finds a link, or better when the inserted model exists on amazon
+    print("example of attended insert: 650W\n")
+    pws_infos=pws.pws(input("insert the desired Pwoer Supply model:\n"))
+    if ssd_infos["link"]!=[]:
+        break
+    else: 
+        print("the desired model doesn't exist on amazon, try searching something else\n")
+        
+# Request of the desired Power Supply
+print("Request of the desired Corsair Vengeance RAM\n")
+while True: #this while breaks when it finds a link, or better when the inserted model exists on amazon
+    print("example of attended insert:16GB\n")
+    ram_infos=ram.ram(input("insert the desired RAM model:\n"))
+    if ssd_infos["link"]!=[]:
+        break
+    else: 
+        print("the desired model doesn't exist on amazon, try searching something else\n")
+        
 print("What would you like to do now?") # asks what to do next
 while True:
     try:
@@ -120,7 +140,7 @@ while True:
     except:
         print("insert a number")
     else:
-        if 1<=scelta<=3: break
+        if 1<=scelta<=4: break
         else: print("Try again")
 
 if scelta == 1: #searches the cheapest products and downloades the amazon webpage
@@ -411,5 +431,14 @@ elif scelta==2:
     cheapest_components["liquid_freezer"]=cheapest_ssd
     
     #print(cheapest_components)
+elif scelta==3:
+    webbrowser.open(case_infos["link"])
+    webbrowser.open(cpu_infos["link"])
+    webbrowser.open(gpu_infos["link"])
+    webbrowser.open(dissipator_infos["link"])
+    webbrowser.open(mb_infos["link"])
+    webbrowser.open(pws_infos["link"])
+    webbrowser.open(ssd_infos["link"])
+    webbrowser.open(ram_infos["link"])
 else:
     print("We hope you had a nice time and you've found the perfect components for your PC. We hope to see you soon!")
