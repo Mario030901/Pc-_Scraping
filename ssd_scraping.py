@@ -60,7 +60,6 @@ def amazon_ssd(ssd_model: str): # ssd_model is used to search a specified GPU mo
 
     if os.path.exists(file_path):
         os.remove(file_path)
-    
     return info_ssd
 
 #amazon_ssd('1T')
