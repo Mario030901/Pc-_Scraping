@@ -2,6 +2,7 @@
 import pandas as pd
 import requests  # Imports library for HTTP requests
 from bs4 import BeautifulSoup as bs  # Imports BeautifulSoup for HTML parsing
+import webbrowser # Imports a library to open pages on browsers
 import os  # Imports library to interact with the operating system
 import case_scraping as c
 import cpu_scraping as cpu
