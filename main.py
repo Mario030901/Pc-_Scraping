@@ -136,7 +136,7 @@ while True: #this while breaks when it finds a link, or better when the inserted
 print("What would you like to do now?") # asks what to do next
 while True:
     try:
-        scelta = int(input("Download the webpage of the cheapest products (1) | Show the cheapest products (2) | Quit (3)\n")) # shows the options and waits for an answer
+        scelta = int(input("Download the webpage of the cheapest products (1) | Show the cheapest products (2) | Open the pages on the browser (3) | Quit (4)\n")) # shows the options and waits for an answer
     except:
         print("insert a number")
     else:
