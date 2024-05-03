@@ -13,7 +13,7 @@ def pws(pws_model: str):   # power supply model is used to search a specified CP
     
     # URL to search power supplies
     url = f"https://www.amazon.it/s?k=power+supply+corsair{pws_model}"
-    title_name_check = 'power supply corsair'
+    title_name_check = 'corsair'
 
     response = requests.get(url, headers=HEADERS)  # makes a HTTP request to the URL
     soup = bs(response.content, 'html.parser')  # Analyzes the response
