@@ -86,7 +86,7 @@ def gpu(gpu_model: str): # gpu_model is used to search a specified GPU model
                 soup = bs(htmlfile, "html.parser")
         
             links = soup.find_all('a', attrs={'class': 'a-link-normal s-no-outline'})
-            links_list = [link.get('href') for link in links[:3]]  # Limit to first 3 elements
+            links_list = [link.get('href') for link in links[:5]]  # Limit to first 3 elements
 
             # Download of the page and info extraction for every product
             for link in links_list:
