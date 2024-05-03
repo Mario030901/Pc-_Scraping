@@ -39,7 +39,7 @@ def pws(pws_model: str):   # power supply model is used to search a specified CP
 
     # Download of the page and info extraction for every product
     links = soup.find_all('a', attrs={'class': 'a-link-normal s-no-outline'})
-    links_list = [link.get('href') for link in links[:3]]  # Limit to first 3 elements
+    links_list = [link.get('href') for link in links[:5]]  # Limit to first 3 elements
 
     # Download of the page and info extraction for every product
     for link in links_list:
