@@ -58,8 +58,8 @@ def pws(pws_model: str):   # power supply model is used to search a specified CP
             info_pws['price'].append(price)
             info_pws['link'].append(product_url)
             
-    '''if os.path.exists(file_path):
-        os.remove(file_path)'''
+    if os.path.exists(file_path):
+        os.remove(file_path)
     return info_pws
 
 # Example usage
