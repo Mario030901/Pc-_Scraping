@@ -1,4 +1,5 @@
 # Import
+import pandas as pd
 import requests  # Imports library for HTTP requests
 from bs4 import BeautifulSoup as bs  # Imports BeautifulSoup for HTML parsing
 import os  # Imports library to interact with the operating system
@@ -15,6 +16,7 @@ import power_supply_scraping as pws
 print("Before we start please note that we scrape from amazon, so, if you insert a model that doesn't exist you won't get nothing. Be careful")
 
 # Variabili iniziali
+cheapest_components={}
 controllo = False
 gpu_model = ""
 cpu_infos={}
@@ -213,7 +215,8 @@ elif scelta==2:
                 cheapest_cpu["link"]=i[2]
         cont+=1
     cont=0
-    print(f"I've found it, here it is\n{cheapest_cpu}")
+    print(f"I've found it\n")
+    cheapest_components["cpu"]=cheapest_cpu
     
     print("searching cheaper CASE")
     for i in zip(case_infos["name"], case_infos["price"], case_infos["link"]):
@@ -228,7 +231,8 @@ elif scelta==2:
                 cheapest_case["link"]=i[2]
         cont+=1
     cont=0
-    print(f"I've found it, here it is\n{cheapest_case}")
+    print(f"I've found it\n")
+    cheapest_components["case"]=cheapest_case
     
     print("searching cheaper LIQUID FREEZER")
     for i in zip(dissipator_infos["name"], dissipator_infos["price"], dissipator_infos["link"]):
@@ -243,7 +247,8 @@ elif scelta==2:
                 cheapest_dissipator["link"]=i[2]
         cont+=1
     cont=0
-    print(f"I've found it, here it is\n{cheapest_dissipator}")
+    print(f"I've found it\n")
+    cheapest_components["liquid_freezer"]=cheapest_dissipator
     
     print("searching cheaper GPU")
     for i in zip(gpu_infos["name"], gpu_infos["price"], gpu_infos["link"]):
@@ -258,6 +263,8 @@ elif scelta==2:
                 cheapest_gpu["link"]=i[2]
         cont+=1
     cont=0
-    print(f"I've found it, here it is\n{cheapest_gpu}")
+    print(f"I've found it\n{cheapest_gpu}")
+    cheapest_components["gpu"]=cheapest_gpu
+    print(cheapest_components)
 else:
     print("We hope you had a nice time and you've found the perfect components for your PC. We hope to see you soon!")
