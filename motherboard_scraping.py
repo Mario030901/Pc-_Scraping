@@ -109,4 +109,35 @@ def amazon_mother_boards(mb_model: str): # mb_model is used to search a specifie
         os.remove(file_path)
     return info_mb
 
+def find_cheapest(mb_infos: dict):
+    '''This function searches for the cheapest MOTHER BOARD amongst the ones collected from the scraping'''
+    cheapest_motherBoard = {}
+    cont=0
+    print("downloading MotherBoard file")
+    for i in zip(mb_infos["price"], mb_infos["link"]):
+        if cont==0:
+            cheapest_motherBoard["price"]=i[0]
+            cheapest_motherBoard["link"]=i[1]
+        else:
+            if cheapest_motherBoard["price"]>i[0]: 
+                cheapest_motherBoard["price"] = i[0]
+                cheapest_motherBoard["link"]=i[1]
+        cont+=1
+    return cheapest_motherBoard
+
+def download_file(cheapest_motherBoard: dict):
+    '''This function downloads on the machine the webpage of the cheapest MOTHER BOARD'''
+    # Saving the file
+    current_dir = os.path.dirname(__file__)
+    mb_file = f"cheapest_motherBoard.html"
+    mb_file_path = os.path.join(current_dir, mb_file)
+    HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'} # simulates a browser request
+    response = requests.get(cheapest_motherBoard["link"], headers=HEADERS) # makes a HTTP request to the URL
+    soup = bs(response.content, 'html.parser') # Analyzes the response
+    # If the file exists deletes it
+    if os.path.exists(mb_file_path):
+        os.remove(mb_file_path)
+    with open(mb_file_path, 'w', encoding='utf-8') as f:
+        f.write(soup.prettify())
+
 #amazon_mother_boards('Z790')

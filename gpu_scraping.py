@@ -69,7 +69,7 @@ def gpu(gpu_model: str): # gpu_model is used to search a specified GPU model
         # saving HTML content to analyze it on the machine
         current_dir = os.path.dirname(__file__)
         gpu_name = "amazon_rtx" + str(gpu_model) + ".html"
-        file_path = os.path.join(current_dir, gpu_model)
+        file_path = os.path.join(current_dir, gpu_name)
 
         # If the file exists deletes it and resaves it
         if os.path.exists(file_path):
@@ -106,5 +106,36 @@ def gpu(gpu_model: str): # gpu_model is used to search a specified GPU model
     if os.path.exists(file_path):
         os.remove(file_path)
     return info_gpu
+
+def find_cheapest(gpu_infos: dict):
+    '''This function searches for the cheapest GPU amongst the ones collected from the scraping'''
+    cheapest_gpu = {}
+    cont = 0
+    print("downloading GPU file")
+    for i in zip(gpu_infos["price"], gpu_infos["link"]):
+        if cont==0:
+            cheapest_gpu["price"]=i[0]
+            cheapest_gpu["link"]=i[1]
+        else:
+            if cheapest_gpu["price"]>i[0]:
+                cheapest_gpu["price"] = i[0]
+                cheapest_gpu["link"]=i[1]
+        cont+=1
+    return cheapest_gpu
+
+def download_file(cheapest_gpu: dict):
+    '''This function downloads on the machine the webpage of the cheapest GPU'''
+    # Saving the file
+    current_dir = os.path.dirname(__file__)
+    gpu_file = f"cheapest_gpu.html"
+    gpu_file_path = os.path.join(current_dir, gpu_file)
+    HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'} # simulates a browser request
+    response = requests.get(cheapest_gpu["link"], headers=HEADERS) # makes a HTTP request to the URL
+    soup = bs(response.content, 'html.parser') # Analyzes the response
+    # If the file exists deletes it
+    if os.path.exists(gpu_file_path):
+        os.remove(gpu_file_path)
+    with open(gpu_file_path, 'w', encoding='utf-8') as f:
+        f.write(soup.prettify())
 
 #gpu('4070')

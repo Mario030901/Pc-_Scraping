@@ -108,4 +108,35 @@ def cpu(cpu_model: str): # cpu_model is used to search a specified CPU model
         os.remove(file_path)
     return info_cpu
 
+def find_cheapest(cpu_infos: dict):
+    '''This function searches for the cheapest CPU amongst the ones collected from the scraping'''
+    cont=0
+    cheapest_cpu = {}
+    print("downloading CPU file")
+    for i in zip(cpu_infos["price"], cpu_infos["link"]):
+        if cont==0:
+            cheapest_cpu["price"]=i[0]
+            cheapest_cpu["link"]=i[1]
+        else:
+            if cheapest_cpu["price"]>i[0]: 
+                cheapest_cpu["price"] = i[0]
+                cheapest_cpu["link"]=i[1]
+        cont+=1
+    return cheapest_cpu
+
+def download_file(cheapest_cpu: dict):
+    '''This function downloads on the machine the webpage of the cheapest CPU'''
+    # Saving the file
+    current_dir = os.path.dirname(__file__)
+    cpu_file = f"cheapest_cpu.html"
+    cpu_file_path = os.path.join(current_dir, cpu_file)
+    HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'} # simulates a browser request
+    response = requests.get(cheapest_cpu["link"], headers=HEADERS) # makes a HTTP request to the URL
+    soup = bs(response.content, 'html.parser') # Analyzes the response
+    # If the file exists deletes it
+    if os.path.exists(cpu_file_path):
+        os.remove(cpu_file_path)
+    with open(cpu_file_path, 'w', encoding='utf-8') as f:
+        f.write(soup.prettify())
+
 #print(cpu('i5 14500'))

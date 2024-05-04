@@ -110,4 +110,35 @@ def amazon_ssd(ssd_model: str): # ssd_model is used to search a specified GPU mo
         os.remove(file_path)
     return info_ssd
 
+def find_cheapest(ssd_infos: dict):
+    
+    cheapest_ssd = {}
+    cont=0
+    print("downloading SSD file")
+    for i in zip(ssd_infos["price"], ssd_infos["link"]):
+        if cont==0:
+            cheapest_ssd["price"]=i[0]
+            cheapest_ssd["link"]=i[1]
+        else:
+            if cheapest_ssd["price"]>i[0]: 
+                cheapest_ssd["price"] = i[0]
+                cheapest_ssd["link"]=i[1]
+        cont+=1
+    return cheapest_ssd
+
+def download_file(cheapest_ssd: dict):
+    
+    # Saving the file
+    current_dir = os.path.dirname(__file__)
+    ssd_file = f"cheapest_ssd.html"
+    ssd_file_path = os.path.join(current_dir, ssd_file)
+    HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'} # simulates a browser request
+    response = requests.get(cheapest_ssd["link"], headers=HEADERS) # makes a HTTP request to the URL
+    soup = bs(response.content, 'html.parser') # Analyzes the response
+    # If the file exists deletes it
+    if os.path.exists(ssd_file_path):
+        os.remove(ssd_file_path)
+    with open(ssd_file_path, 'w', encoding='utf-8') as f:
+        f.write(soup.prettify())
+
 #amazon_ssd('1T')

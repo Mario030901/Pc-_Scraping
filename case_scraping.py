@@ -4,7 +4,7 @@
 import requests  # Imports library for HTTP requests
 from bs4 import BeautifulSoup as bs  # Imports BeautifulSoup for HTML parsing
 import os  # Imports library to interact with the operating system
-# End of imports
+# End of importsù
 
 def case(case_model: str): # case_model is used to search a specified case model
     '''This function scrapes Corsair cases from amazon and downloads the amazon webpage on the machine'''
@@ -108,5 +108,36 @@ def case(case_model: str): # case_model is used to search a specified case model
     if os.path.exists(file_path):
         os.remove(file_path)
     return info_case
+
+def find_cheapest(case_infos: dict):
+    '''This function searches for the cheapest CASE amongst the ones collected from the scraping'''
+    cont=0
+    cheapest_case = {}
+    print("downloading CASE file")
+    for i in zip(case_infos["price"], case_infos["link"]):
+        if cont==0:
+            cheapest_case["price"]=i[0]
+            cheapest_case["link"]=i[1]
+        else:
+            if cheapest_case["price"]>i[0]: 
+                cheapest_case["price"] = i[0]
+                cheapest_case["link"]=i[1]
+        cont+=1
+    return cheapest_case
+
+def download_file(cheapest_case: dict):
+    '''This function downloads on the machine the webpage of the cheapest CASE'''
+    # Saving the file
+    current_dir = os.path.dirname(__file__)
+    case_file = f"cheapest_case.html"
+    case_file_path = os.path.join(current_dir, case_file)
+    HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'} # simulates a browser request
+    response = requests.get(cheapest_case["link"], headers=HEADERS) # makes a HTTP request to the URL
+    soup = bs(response.content, 'html.parser') # Analyzes the response
+    # If the file exists deletes it
+    if os.path.exists(case_file_path):
+        os.remove(case_file_path)
+    with open(case_file_path, 'w', encoding='utf-8') as f:
+        f.write(soup.prettify())
 
 #case('crystal 570X')
