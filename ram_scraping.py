@@ -66,7 +66,6 @@ def find_cheapest(ram_infos: dict):
     '''This function searches for the cheapest RAM amongst the ones collected from the scraping'''
     cheapest_ram = {}
     cont=0
-    print("downloading RAM file")
     for i in zip(ram_infos["price"], ram_infos["link"]):
         if cont==0:
             cheapest_ram["price"]=i[0]
@@ -81,6 +80,7 @@ def find_cheapest(ram_infos: dict):
 def download_file(cheapest_ram: dict):
     '''This function downloads on the machine the webpage of the cheapest RAM'''
     # Saving the file
+    print("downloading RAM file")
     current_dir = os.path.dirname(__file__)
     ram_file = f"cheapest_ram.html"
     ram_file_path = os.path.join(current_dir, ram_file)

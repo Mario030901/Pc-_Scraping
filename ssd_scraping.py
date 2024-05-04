@@ -111,10 +111,9 @@ def amazon_ssd(ssd_model: str): # ssd_model is used to search a specified GPU mo
     return info_ssd
 
 def find_cheapest(ssd_infos: dict):
-    
+    '''This function searches for the cheapest SSD amongst the ones collected from the scraping'''
     cheapest_ssd = {}
     cont=0
-    print("downloading SSD file")
     for i in zip(ssd_infos["price"], ssd_infos["link"]):
         if cont==0:
             cheapest_ssd["price"]=i[0]
@@ -127,8 +126,9 @@ def find_cheapest(ssd_infos: dict):
     return cheapest_ssd
 
 def download_file(cheapest_ssd: dict):
-    
+    '''This function downloads on the machine the webpage of the cheapest SSD'''
     # Saving the file
+    print("downloading SSD file")
     current_dir = os.path.dirname(__file__)
     ssd_file = f"cheapest_ssd.html"
     ssd_file_path = os.path.join(current_dir, ssd_file)

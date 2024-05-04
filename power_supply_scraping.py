@@ -64,7 +64,6 @@ def find_cheapest(pws_infos: dict):
     '''This function searches for the cheapest POWER SUPPLY amongst the ones collected from the scraping'''
     cheapest_pws = {}
     cont=0
-    print("downloading POWER SUPPLY file")
     for i in zip(pws_infos["price"], pws_infos["link"]):
         if cont==0:
             cheapest_pws["price"]=i[0]
@@ -79,6 +78,7 @@ def find_cheapest(pws_infos: dict):
 def download_file(cheapest_pws: dict):
     '''This function downloads on the machine the webpage of the cheapest POWER SUPPLY'''
     # Saving the file
+    print("downloading POWER SUPPLY file")
     current_dir = os.path.dirname(__file__)
     pws_file = f"cheapest_powerSupply.html"
     pws_file_path = os.path.join(current_dir, pws_file)

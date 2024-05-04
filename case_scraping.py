@@ -15,7 +15,7 @@ def case(case_model: str): # case_model is used to search a specified case model
         HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36'} # simulates a browser request
     
         # URL to search corsair cases
-        url = f"https://www.amazon.it/s?k=case+corsair+{case_model}"
+        url = f"https://www.amazon.it/s?k=case+corsair+{case_models[0]}+{case_models[1]}"
         title_name_check = 'corsair'
 
         response = requests.get(url, headers=HEADERS) # makes a HTTP request to the URL
@@ -113,7 +113,6 @@ def find_cheapest(case_infos: dict):
     '''This function searches for the cheapest CASE amongst the ones collected from the scraping'''
     cont=0
     cheapest_case = {}
-    print("downloading CASE file")
     for i in zip(case_infos["price"], case_infos["link"]):
         if cont==0:
             cheapest_case["price"]=i[0]
@@ -128,6 +127,7 @@ def find_cheapest(case_infos: dict):
 def download_file(cheapest_case: dict):
     '''This function downloads on the machine the webpage of the cheapest CASE'''
     # Saving the file
+    print("downloading CASE file")
     current_dir = os.path.dirname(__file__)
     case_file = f"cheapest_case.html"
     case_file_path = os.path.join(current_dir, case_file)
