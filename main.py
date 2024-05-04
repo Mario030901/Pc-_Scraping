@@ -184,8 +184,6 @@ elif scelta==2:
     cheapest_cpu["model"] = cpu_model
     cheapest_components["cpu"]=cheapest_cpu
     
-    
-    
     print("searching cheapest LIQUID FREEZER")
     for i in zip(dissipator_infos["name"], dissipator_infos["price"], dissipator_infos["link"]):
         if cont==0:
@@ -238,54 +236,29 @@ elif scelta==2:
     
     #print(cheapest_components)
 elif scelta==3:
-    print("searching cheapest CASE")
     cheapest_case=c.find_cheapest(case_infos)
 
-    print("searching cheapest CPU")
     cheapest_cpu=cpu.find_cheapest(cpu_infos)
 
-    print("searching cheapest LIQUID FREEZER")
+    cheapest_gpu=gpu.find_cheapest(gpu_infos)
+
     cheapest_dissipator=ld.find_cheapest(dissipator_infos)
 
-    print("searching cheapest GPU")
-    for i in zip(gpu_infos["name"], gpu_infos["price"], gpu_infos["link"]):
-        if cont==0:
-            cheapest_gpu["title"]=i[0]
-            cheapest_gpu["price"]=i[1]
-            cheapest_gpu["link"]=i[2]
-        else:
-            if cheapest_gpu["price"]>i[1]: 
-                cheapest_gpu["title"]=i[0]
-                cheapest_gpu["price"]=i[1]
-                cheapest_gpu["link"]=i[2]
-        cont+=1
-    cont=0
-    print(f"I've found it\n{cheapest_gpu}")
-    cheapest_components["gpu"]=cheapest_gpu
+    cheapest_motherBoard=mb.find_cheapest(mb_infos)
 
-    print("searching cheapest SSD")
-    for i in zip(ssd_infos["name"], ssd_infos["price"], ssd_infos["link"]):
-        if cont==0:
-            cheapest_ssd["title"]=i[0]
-            cheapest_ssd["price"]=i[1]
-            cheapest_ssd["link"]=i[2]
-        else:
-            if cheapest_ssd["price"]>i[1]: 
-                cheapest_ssd["title"]=i[0]
-                cheapest_ssd["price"]=i[1]
-                cheapest_ssd["link"]=i[2]
-        cont+=1
-    cont=0
-    print(f"I've found it\n")
-    cheapest_components["liquid_freezer"]=cheapest_ssd
+    cheapest_pws=pws.find_cheapest(pws_infos)
+
+    cheapest_ram=ram.find_cheapest(ram_infos)
+
+    cheapest_ssd=ssd.find_cheapest(ssd_infos)
 
     webbrowser.open(cheapest_case["link"])
     webbrowser.open(cheapest_cpu["link"])
     webbrowser.open(cheapest_gpu["link"])
     webbrowser.open(cheapest_dissipator["link"])
-    #webbrowser.open(mb_infos["link"])
-    #webbrowser.open(pws_infos["link"])
+    webbrowser.open(mb_infos["link"])
+    webbrowser.open(pws_infos["link"])
     webbrowser.open(cheapest_ssd["link"])
-    #webbrowser.open(ram_infos["link"])
+    webbrowser.open(ram_infos["link"])
 else:
     print("We hope you had a nice time and you've found the perfect components for your PC. We hope to see you soon!")
