@@ -247,10 +247,10 @@ while scelta!=4:
         webbrowser.open(cheapest_cpu["link"])
         webbrowser.open(cheapest_gpu["link"])
         webbrowser.open(cheapest_dissipator["link"])
-        webbrowser.open(mb_infos["link"])
-        webbrowser.open(pws_infos["link"])
+        webbrowser.open(cheapest_motherBoard["link"])
+        webbrowser.open(cheapest_pws["link"])
+        webbrowser.open(cheapest_ram["link"])
         webbrowser.open(cheapest_ssd["link"])
-        webbrowser.open(ram_infos["link"])
         
         while True:
             try:
