@@ -170,15 +170,6 @@ while scelta!=4:
         
         cheapest_ssd = ssd.find_cheapest(ssd_infos)
         ssd.download_file(cheapest_ssd)
-        
-        while True:
-            try:
-                scelta = int(input("Download the webpage of the cheapest products (1) | Show the cheapest products (2) | Open the pages on the browser (3) | Quit (4)\n")) # shows the options and waits for an answer
-            except:
-                print("insert a number")
-            else:
-                if 1<=scelta<=4: break
-                else: print("Try again")
 
     elif scelta==2:
         cheapest_case = c.find_cheapest(case_infos)
@@ -216,15 +207,6 @@ while scelta!=4:
 
         build = pd.DataFrame(cheapest_components)
         build.to_excel('build_pc.xlsx')
-        
-        while True:
-            try:
-                scelta = int(input("Download the webpage of the cheapest products (1) | Show the cheapest products (2) | Open the pages on the browser (3) | Quit (4)\n")) # shows the options and waits for an answer
-            except:
-                print("insert a number")
-            else:
-                if 1<=scelta<=4: break
-                else: print("Try again")
 
     elif scelta==3:
         cheapest_case=c.find_cheapest(case_infos)
@@ -252,15 +234,10 @@ while scelta!=4:
         webbrowser.open(cheapest_ram["link"])
         webbrowser.open(cheapest_ssd["link"])
         
-        while True:
-            try:
-                scelta = int(input("Download the webpage of the cheapest products (1) | Show the cheapest products (2) | Open the pages on the browser (3) | Quit (4)\n")) # shows the options and waits for an answer
-            except:
-                print("insert a number")
-            else:
-                if 1<=scelta<=4: break
-                else: print("Try again")
     elif scelta == 4:
         print("We hope you had a nice time and you've found the perfect components for your PC. We hope to see you soon!")
     else:
         print("choice not available, retry")
+    
+    print("What would you like to do now?") # asks what to do next
+    scelta = int(input("Download the webpage of the cheapest products (1) | Create an excel file with all the informations (2) | Open the pages on the browser (3) | Quit (4)\n")) # shows the options and waits for an answer
