@@ -111,7 +111,6 @@ def find_cheapest(gpu_infos: dict):
     '''This function searches for the cheapest GPU amongst the ones collected from the scraping'''
     cheapest_gpu = {}
     cont = 0
-    print("downloading GPU file")
     for i in zip(gpu_infos["price"], gpu_infos["link"]):
         if cont==0:
             cheapest_gpu["price"]=i[0]
@@ -126,6 +125,7 @@ def find_cheapest(gpu_infos: dict):
 def download_file(cheapest_gpu: dict):
     '''This function downloads on the machine the webpage of the cheapest GPU'''
     # Saving the file
+    print("downloading GPU file")
     current_dir = os.path.dirname(__file__)
     gpu_file = f"cheapest_gpu.html"
     gpu_file_path = os.path.join(current_dir, gpu_file)

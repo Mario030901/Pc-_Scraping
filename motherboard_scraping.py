@@ -113,7 +113,6 @@ def find_cheapest(mb_infos: dict):
     '''This function searches for the cheapest MOTHER BOARD amongst the ones collected from the scraping'''
     cheapest_motherBoard = {}
     cont=0
-    print("downloading MotherBoard file")
     for i in zip(mb_infos["price"], mb_infos["link"]):
         if cont==0:
             cheapest_motherBoard["price"]=i[0]
@@ -127,7 +126,8 @@ def find_cheapest(mb_infos: dict):
 
 def download_file(cheapest_motherBoard: dict):
     '''This function downloads on the machine the webpage of the cheapest MOTHER BOARD'''
-    # Saving the file
+    # Saving the fileù
+    print("downloading MotherBoard file")
     current_dir = os.path.dirname(__file__)
     mb_file = f"cheapest_motherBoard.html"
     mb_file_path = os.path.join(current_dir, mb_file)

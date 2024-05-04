@@ -112,7 +112,6 @@ def find_cheapest(cpu_infos: dict):
     '''This function searches for the cheapest CPU amongst the ones collected from the scraping'''
     cont=0
     cheapest_cpu = {}
-    print("downloading CPU file")
     for i in zip(cpu_infos["price"], cpu_infos["link"]):
         if cont==0:
             cheapest_cpu["price"]=i[0]
@@ -127,6 +126,7 @@ def find_cheapest(cpu_infos: dict):
 def download_file(cheapest_cpu: dict):
     '''This function downloads on the machine the webpage of the cheapest CPU'''
     # Saving the file
+    print("downloading CPU file")
     current_dir = os.path.dirname(__file__)
     cpu_file = f"cheapest_cpu.html"
     cpu_file_path = os.path.join(current_dir, cpu_file)

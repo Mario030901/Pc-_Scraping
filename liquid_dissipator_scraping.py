@@ -64,7 +64,6 @@ def find_cheapest(dissipator_infos: dict):
     '''This function searches for the cheapest LIQUID FREEZER amongst the ones collected from the scraping'''
     cheapest_dissipator = {}
     cont = 0
-    print("downloading LIQUID FREEZER file")
     for i in zip(dissipator_infos["price"], dissipator_infos["link"]):
         if cont==0:
             cheapest_dissipator["price"]=i[0]
@@ -79,6 +78,7 @@ def find_cheapest(dissipator_infos: dict):
 def download_file(cheapest_dissipator: dict):
     '''This function downloads on the machine the webpage of the cheapest LIQUID FREEZER'''
     # Saving the file
+    print("downloading LIQUID FREEZER file")
     current_dir = os.path.dirname(__file__)
     dissipator_file = f"cheapest_dissipator.html"
     dissipator_file_path = os.path.join(current_dir, dissipator_file)
