@@ -1,6 +1,7 @@
 # Import
 import os   
 import pandas as pd
+import shutil
 import webbrowser # Imports a library to open pages on browsers
 import case_scraping as c
 import cpu_scraping as cpu
@@ -235,22 +236,12 @@ while scelta!=4:
         total_price+= float(cheapest_ssd["price"][:-1])
 
         build = pd.DataFrame(cheapest_components)
-        current_dir=os.path.dirname(__file__)
-        excel_path=os.path.join(current_dir, "build_pc.xlsx")
-        if os.path.exists(excel_path):
-            os.remove(excel_path) 
-        os.makedirs(excel_path)
         total_price_df = pd.DataFrame({'Total Price': [total_price], 'Budget': [budget]})
-        with pd.ExcelWriter(excel_path, engine='openpyxl', mode='w') as writer:
-            pd.DataFrame(build).to_excel(writer, sheet_name='build_pc', index=False)
-            total_price_df.to_excel(writer, sheet_name='Total Price', index=False)
-        # build.to_excel('build_pc.xlsx')
-        
-            
-
-
-
-
+        current_dir = os.path.dirname(__file__)
+        build_path = os.path.join(current_dir, 'build_pc.xlsx')
+        budget_path = os.path.join(current_dir, 'budget.xlsx')
+        build.to_excel(build_path)
+        total_price_df.to_excel(budget_path)
 
     elif scelta==3:
         cheapest_case=c.find_cheapest(case_infos)
