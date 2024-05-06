@@ -35,7 +35,7 @@ cont,cheapest_cpu, cheapest_case, cheapest_dissipator, cheapest_gpu, cheapest_ss
             preferenza = "GPU"
             print("For an optimal GPU, we suggest the 4000 serie of NVIDIA, like RTX 4060, 4070, 4080 or the powerful 4090.")
             break
-        elif preferenza_scelta == 2:
+        elif preferenza_scelta == 
             preferenza = "CPU"
             print("For the latest generation CPUs, we suggest 14th generation processors. Note: We know thanks to experience that 13th generation processors tend to overheat.")
             break
