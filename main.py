@@ -1,4 +1,5 @@
 # Import
+import os   
 import pandas as pd
 import webbrowser # Imports a library to open pages on browsers
 import case_scraping as c
@@ -206,7 +207,13 @@ while scelta!=4:
         cheapest_components["ssd"]=cheapest_ssd
 
         build = pd.DataFrame(cheapest_components)
+        current_dir=os.path.dirname(__file__)
+        excel_path=os.path.join(current_dir, "build_pc.xlsx")
+        if os.path.exists(excel_path):
+            os.remove(excel_path) 
         build.to_excel('build_pc.xlsx')
+
+
 
     elif scelta==3:
         cheapest_case=c.find_cheapest(case_infos)
