@@ -142,7 +142,7 @@ while True: #this while breaks when it finds a link, or better when the inserted
 print("What would you like to do now?") # asks what to do next
 while True:
     try:
-        scelta = int(input("Download the webpage of the cheapest products (1) | Show the cheapest products (2) | Open the pages on the browser (3) | Quit (4)\n")) # shows the options and waits for an answer
+        scelta = int(input("Download the webpage of the cheapest products (1) | Create an excel file with all the informations (2) | Open the pages on the browser (3) | Quit (4)\n")) # shows the options and waits for an answer
     except:
         print("insert a number")
     else:
@@ -179,43 +179,60 @@ while scelta!=4:
         cheapest_case = c.find_cheapest(case_infos)
         cheapest_case["model"] = case_model
         cheapest_components["case"]=cheapest_case
-        total_price+= float(cheapest_case["price"])
+        cheapest_case['price']=cheapest_case["price"].replace('.','')
+        cheapest_case['price']=cheapest_case["price"].replace(',','.')
+        total_price+= float(cheapest_case["price"][:-1])
+
 
         cheapest_cpu = cpu.find_cheapest(cpu_infos)
         cheapest_cpu["model"] = cpu_model
         cheapest_components["cpu"]=cheapest_cpu
-        total_price+= float(cheapest_cpu["price"])
+        cheapest_cpu['price']=cheapest_cpu["price"].replace('.','')
+        cheapest_cpu['price']=cheapest_cpu["price"].replace(',','.')
+        total_price+= float(cheapest_cpu["price"][:-1])
 
         cheapest_gpu = gpu.find_cheapest(gpu_infos)
         cheapest_gpu["model"] = gpu_model
         cheapest_components["gpu"]=cheapest_gpu
-        total_price+= float(cheapest_gpu["price"])
+        cheapest_gpu['price']=cheapest_gpu["price"].replace('.','')
+        cheapest_gpu['price']=cheapest_gpu["price"].replace(',','.')
+        total_price+= float(cheapest_gpu["price"][:-1])
 
         cheapest_dissipator = ld.find_cheapest(dissipator_infos)
         cheapest_dissipator["model"] = lf_model
         cheapest_components["liquid_freezer"]=cheapest_dissipator
-        total_price+= float(cheapest_dissipator["price"])
+        cheapest_dissipator['price']=cheapest_dissipator["price"].replace('.','')
+        cheapest_dissipator['price']=cheapest_dissipator["price"].replace(',','.')
+        total_price+= float(cheapest_dissipator["price"][:-1])
 
         cheapest_motherBoard = mb.find_cheapest(mb_infos)
         cheapest_motherBoard["model"] = mb_model
         cheapest_components["mother_board"]=cheapest_motherBoard
-        total_price+= float(cheapest_motherBoard["price"])
+        cheapest_motherBoard['price']=cheapest_motherBoard["price"].replace('.','')
+        cheapest_motherBoard['price']=cheapest_motherBoard["price"].replace(',','.')
+        total_price+= float(cheapest_motherBoard["price"][:-1])
 
         cheapest_pws = pws.find_cheapest(pws_infos)
         cheapest_pws["model"] = pws_model
         cheapest_components["power_supply"]=cheapest_pws
-        total_price+= float(cheapest_pws["price"])
+        cheapest_pws['price']=cheapest_pws["price"].replace('.','')
+        cheapest_pws['price']=cheapest_pws["price"].replace(',','.')
+        total_price+= float(cheapest_pws["price"][:-1])
 
         cheapest_ram = ram.find_cheapest(ram_infos)
         cheapest_ram["gb"] = ram_gb
         cheapest_ram["hz"] = ram_hz
         cheapest_components["ram"]=cheapest_ram
-        total_price+= float(cheapest_ram["price"])
+        cheapest_ram['price']=cheapest_ram["price"].replace('.','')
+        cheapest_ram['price']=cheapest_ram["price"].replace(',','.')
+        total_price+= float(cheapest_ram["price"][:-1])
 
         cheapest_ssd = ssd.find_cheapest(ssd_infos)
         cheapest_ssd["model"] = ssd_model
         cheapest_components["ssd"]=cheapest_ssd
-        total_price+= float(cheapest_ssd["price"])
+        cheapest_ssd['price']=cheapest_ssd["price"].replace('.','')
+        cheapest_ssd['price']=cheapest_ssd["price"].replace(',','.')
+        total_price+= float(cheapest_ssd["price"][:-1])
 
         build = pd.DataFrame(cheapest_components)
         current_dir=os.path.dirname(__file__)
