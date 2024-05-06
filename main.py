@@ -179,55 +179,55 @@ while scelta!=4:
         cheapest_case = c.find_cheapest(case_infos)
         cheapest_case["model"] = case_model
         cheapest_components["case"]=cheapest_case
-        total_price+= int(cheapest_case["price"])
+        total_price+= float(cheapest_case["price"])
 
         cheapest_cpu = cpu.find_cheapest(cpu_infos)
         cheapest_cpu["model"] = cpu_model
         cheapest_components["cpu"]=cheapest_cpu
-        total_price+= int(cheapest_cpu["price"])
+        total_price+= float(cheapest_cpu["price"])
 
         cheapest_gpu = gpu.find_cheapest(gpu_infos)
         cheapest_gpu["model"] = gpu_model
         cheapest_components["gpu"]=cheapest_gpu
-        total_price+= int(cheapest_gpu["price"])
+        total_price+= float(cheapest_gpu["price"])
 
         cheapest_dissipator = ld.find_cheapest(dissipator_infos)
         cheapest_dissipator["model"] = lf_model
         cheapest_components["liquid_freezer"]=cheapest_dissipator
-        total_price+= int(cheapest_dissipator["price"])
+        total_price+= float(cheapest_dissipator["price"])
 
         cheapest_motherBoard = mb.find_cheapest(mb_infos)
         cheapest_motherBoard["model"] = mb_model
         cheapest_components["mother_board"]=cheapest_motherBoard
-        total_price+= int(cheapest_motherBoard["price"])
+        total_price+= float(cheapest_motherBoard["price"])
 
         cheapest_pws = pws.find_cheapest(pws_infos)
         cheapest_pws["model"] = pws_model
         cheapest_components["power_supply"]=cheapest_pws
-        total_price+= int(cheapest_pws["price"])
+        total_price+= float(cheapest_pws["price"])
 
         cheapest_ram = ram.find_cheapest(ram_infos)
         cheapest_ram["gb"] = ram_gb
         cheapest_ram["hz"] = ram_hz
         cheapest_components["ram"]=cheapest_ram
-        total_price+= int(cheapest_ram["price"])
+        total_price+= float(cheapest_ram["price"])
 
         cheapest_ssd = ssd.find_cheapest(ssd_infos)
         cheapest_ssd["model"] = ssd_model
         cheapest_components["ssd"]=cheapest_ssd
-        total_price+= int(cheapest_ssd["price"])
+        total_price+= float(cheapest_ssd["price"])
 
         build = pd.DataFrame(cheapest_components)
         current_dir=os.path.dirname(__file__)
         excel_path=os.path.join(current_dir, "build_pc.xlsx")
         if os.path.exists(excel_path):
-           os.remove(excel_path) 
+            os.remove(excel_path) 
         os.makedirs(excel_path)
         total_price_df = pd.DataFrame({'Total Price': [total_price], 'Budget': [budget]})
         with pd.ExcelWriter(excel_path, engine='openpyxl', mode='w') as writer:
             pd.DataFrame(build).to_excel(writer, sheet_name='build_pc', index=False)
             total_price_df.to_excel(writer, sheet_name='Total Price', index=False)
-       # build.to_excel('build_pc.xlsx')
+        # build.to_excel('build_pc.xlsx')
         
             
 
