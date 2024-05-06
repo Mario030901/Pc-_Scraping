@@ -61,7 +61,7 @@ def amazon_ssd(ssd_model: str): # ssd_model is used to search a specified GPU mo
         info_ssd = {"name" : [], "price" : [], "link" : []}  # creates a dictionary to store the informations
         HEADERS = ({'User-Agent': '...'})  # simulates a browser request
         
-        url = "https://www.amazon.it/s?k=ssd+" + str(ssd_model)  # URL to search SSDs
+        url = "https://www.amazon.it/s?k=internal+ssd" + str(ssd_model)  # URL to search SSDs
         title_name_check = 'ssd'
         
         response = requests.get(url, headers=HEADERS)  # Makes a HTTP request to the URL

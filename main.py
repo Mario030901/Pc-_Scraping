@@ -28,7 +28,7 @@ total_price=0
 
 
 # Prima di procedere con la scelta della scheda, chiedi il budget e le preferenze dell'utente
-'''try:
+try:
     budget = float(input("Insert the PC budget in euro\n"))
     print("Would you prefer a PC more performing in:\n")
     print("(1) GPU - Graphics | (2) CPU - Processor")
@@ -40,7 +40,7 @@ total_price=0
             preferenza = "GPU"
             print("For an optimal GPU, we suggest the 4000 serie of NVIDIA, like RTX 4060, 4070, 4080 or the powerful 4090.")
             break
-        elif preferenza_scelta == 
+        elif preferenza_scelta == 2:
             preferenza = "CPU"
             print("For the latest generation CPUs, we suggest 14th generation processors. Note: We know thanks to experience that 13th generation processors tend to overheat.")
             break
@@ -48,7 +48,7 @@ total_price=0
             print("Wrong value, insert 1 or 2 to go on.")
 except ValueError as e:
     print(f"Error: {e}")
-    exit()'''
+    exit()
 
 # Request of the desired Case
 print("Request of the desired Corsair Case\n")
@@ -236,12 +236,16 @@ while scelta!=4:
         total_price+= float(cheapest_ssd["price"][:-1])
 
         build = pd.DataFrame(cheapest_components)
-        total_price_df = pd.DataFrame({'Total Price': [total_price], 'Budget': [budget]})
+        if total_price>budget:
+            comparison="budget exceeded"
+        else:
+            comparison="budget respected"
+        total_price_df = pd.DataFrame({'Total Price': [total_price], 'Budget': [budget],'Comparison':[comparison]})
         current_dir = os.path.dirname(__file__)
         build_path = os.path.join(current_dir, 'build_pc.xlsx')
         budget_path = os.path.join(current_dir, 'budget.xlsx')
-        build.to_excel(build_path)
-        total_price_df.to_excel(budget_path)
+        build.to_excel('build_pc.xlsx', index=False)
+        total_price_df.to_excel('budget.xlsx', index=False)
 
     elif scelta==3:
         cheapest_case=c.find_cheapest(case_infos)
