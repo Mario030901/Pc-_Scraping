@@ -1,7 +1,6 @@
 # Import
 import os   
 import pandas as pd
-import shutil
 import webbrowser # Imports a library to open pages on browsers
 import case_scraping as c
 import cpu_scraping as cpu
@@ -248,8 +247,6 @@ while scelta!=4:
         total_price_df.to_excel('budget.xlsx', index=False)
 
     elif scelta==3:
-        cheapest_case=c.find_cheapest(case_infos)
-
         cheapest_cpu=cpu.find_cheapest(cpu_infos)
 
         cheapest_gpu=gpu.find_cheapest(gpu_infos)
@@ -263,6 +260,8 @@ while scelta!=4:
         cheapest_ram=ram.find_cheapest(ram_infos)
 
         cheapest_ssd=ssd.find_cheapest(ssd_infos)
+        
+        cheapest_case=c.find_cheapest(case_infos)
 
         webbrowser.open(cheapest_case["link"])
         webbrowser.open(cheapest_cpu["link"])

@@ -9,7 +9,7 @@ import os  # Imports library to interact with the operating system
 def amazon_ssd(ssd_model: str): # ssd_model is used to search a specified GPU model
     '''This function scrapes SSDs from amazon and downloads the amazon webpage on the machine'''
     if " " in ssd_model:
-        ssd_models=ssd_model.split(" ")
+        ssd_models=ssd_model.split(" ") 
         info_ssd = {"name" : [], "price" : [], "link" : []}  # creates a dictionary to store the informations
         HEADERS = ({'User-Agent': '...'})  # simulates a browser request
         
@@ -27,7 +27,6 @@ def amazon_ssd(ssd_model: str): # ssd_model is used to search a specified GPU mo
         # If the file exists deletes it and resaves it
         if os.path.exists(file_path):
             os.remove(file_path)
-            print(f"File {file_path} has been deleted.")
 
         # Saving the file
         with open(file_path, 'w', encoding='utf-8') as f:
@@ -75,7 +74,6 @@ def amazon_ssd(ssd_model: str): # ssd_model is used to search a specified GPU mo
         # If the file exists deletes it and resaves it
         if os.path.exists(file_path):
             os.remove(file_path)
-            print(f"File {file_path} has been deleted.")
 
         # Saving the file
         with open(file_path, 'w', encoding='utf-8') as f:
